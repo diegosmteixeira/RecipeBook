@@ -18,6 +18,7 @@
     <ProjectReference Include="..\..\Shared\RecipeBook.Communication\RecipeBook.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\RecipeBook.Exceptions\RecipeBook.Exception.csproj" />
     <ProjectReference Include="..\RecipeBook.Application\RecipeBook.Application.csproj" />
+    <ProjectReference Include="..\RecipeBook.Infrastructure\RecipeBook.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
