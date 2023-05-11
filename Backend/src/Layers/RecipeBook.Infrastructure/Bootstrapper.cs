@@ -2,25 +2,55 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RecipeBook.Domain.Extension;
+using RecipeBook.Domain.Repositories;
+using RecipeBook.Infrastructure.Repository;
+using RecipeBook.Infrastructure.Repository.RepositoryAccess;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using FluentMigrator.Runner.Initialization;
 
-namespace RecipeBook.Infrastructure
+namespace RecipeBook.Infrastructure;
+
+public static class Bootstrapper
 {
-    public static class Bootstrapper
+    public static void AddRepository(this IServiceCollection services, IConfiguration configurationManager)
     {
-        public static void AddRepository(this IServiceCollection service, IConfiguration configuration)
+        AddFluentMigrator(services, configurationManager);
+
+        AddContext(services, configurationManager);
+        AddUnityOfWork(services);
+        AddRepositories(services);
+    }
+
+    private static void AddContext(IServiceCollection services, IConfiguration configurationManager)
+    {
+        var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
+        var connectionString = configurationManager.GetConnection();
+
+        services.AddDbContext<RecipeBookContext>(dbContextOptions =>
         {
-            AddFluentMigrator(service, configuration);
-        }
+            dbContextOptions.UseMySql(connectionString, serverVersion);
+        });
+    }
 
-        public static void AddFluentMigrator(IServiceCollection service, IConfiguration configuration)
-        {
+    private static void AddUnityOfWork(IServiceCollection services)
+    {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+    }
+
+    private static void AddRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<IUserWriteOnlyRepository, UserRepository>()
+                .AddScoped<IUserReadOnlyRepository, UserRepository>();
+    }
+
+    public static void AddFluentMigrator(IServiceCollection service, IConfiguration configurationManager)
+    {
 
 
-            service.AddFluentMigratorCore().ConfigureRunner(c => c.AddMySql5()
-                .WithGlobalConnectionString(configuration.GetConnection())
-                .ScanIn(Assembly.Load("RecipeBook.Infrastructure"))
-                .For.All());
-        }
+        service.AddFluentMigratorCore().ConfigureRunner(c => c.AddMySql5()
+            .WithGlobalConnectionString(configurationManager.GetConnection())
+            .ScanIn(Assembly.Load("RecipeBook.Infrastructure"))
+            .For.All());
     }
 }
