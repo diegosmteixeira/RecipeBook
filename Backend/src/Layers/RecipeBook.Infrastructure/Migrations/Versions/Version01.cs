@@ -11,7 +11,7 @@ public class Version01 : Migration
 
     public override void Up()
     {
-        var table = BaseVersion.InsertStandardColumns(Create.Table("User"));
+        var table = BaseVersion.InsertStandardColumns(Create.Table("Users"));
 
         table
              .WithColumn("Name").AsString(100).NotNullable()
