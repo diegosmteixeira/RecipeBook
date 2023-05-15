@@ -13,8 +13,6 @@ public class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository
         _context = context;
     }
 
-    public RecipeBookContext Context { get; }
-
     public async Task Add(User user)
     {
         await _context.Users.AddAsync(user);

@@ -41,6 +41,4 @@ public class ExceptionsFilter : IExceptionFilter
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         context.Result = new ObjectResult(new ErrorResponseJson(ResourceErrorMessages.UNKNOWN_ERROR));
     }
-
-
 }

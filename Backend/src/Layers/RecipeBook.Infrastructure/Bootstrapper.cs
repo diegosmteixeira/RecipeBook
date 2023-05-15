@@ -7,7 +7,6 @@ using RecipeBook.Infrastructure.Repository;
 using RecipeBook.Infrastructure.Repository.RepositoryAccess;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using FluentMigrator.Runner.Initialization;
 
 namespace RecipeBook.Infrastructure;
 

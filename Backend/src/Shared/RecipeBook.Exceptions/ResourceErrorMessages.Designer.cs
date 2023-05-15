@@ -115,7 +115,7 @@ namespace RecipeBook.Exception {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a The user&apos;s phone must be valid (XX) X XXXX-XXXX..
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The user&apos;s phone number must be valid (XX) X XXXX-XXXX..
         /// </summary>
         public static string INVALID_PHONE {
             get {

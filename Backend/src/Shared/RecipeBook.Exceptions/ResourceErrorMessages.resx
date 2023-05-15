@@ -136,7 +136,7 @@
     <value>The user's email must be valid.</value>
   </data>
   <data name="INVALID_PHONE" xml:space="preserve">
-    <value>The user's phone must be valid (XX) X XXXX-XXXX.</value>
+    <value>The user's phone number must be valid (XX) X XXXX-XXXX.</value>
   </data>
   <data name="PASSWORD_LENGTH" xml:space="preserve">
     <value>The user's password must be 6 characters.</value>
