@@ -1,0 +1,97 @@
+{
+	"info": {
+		"_postman_id": "c18d6aa5-4fdf-4b70-b921-663f18152a42",
+		"name": "RecipeBook.Request",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15383230"
+	},
+	"item": [
+		{
+			"name": "UserRegister",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var ddd = _.random(10, 99)\r",
+							"var additionalNumber = _.random(1, 9)\r",
+							"var first4Digits = _.random(1000, 9999)\r",
+							"var last4Digits = _.random(1000, 9999)\r",
+							"\r",
+							"var phoneNumber = ddd + \" \" + additionalNumber + \" \" + first4Digits + \"-\" + last4Digits\r",
+							"\r",
+							"pm.environment.set(\"phoneNumber\", phoneNumber)"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"pm.test(\"Validate if the request return success result\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.have.jsonBody(\"token\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"{{$randomFullName}}\",\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"password\": \"{{$randomPassword}}\",\r\n  \"phone\": \"{{phoneNumber}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/user",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URLBASE",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
