@@ -23,13 +23,19 @@ public static class Bootstrapper
 
     private static void AddContext(IServiceCollection services, IConfiguration configurationManager)
     {
-        var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
-        var connectionString = configurationManager.GetConnection();
+        bool.TryParse(configurationManager.GetSection("Config:DatabaseInMemory").Value, out bool databaseInMemory);
 
-        services.AddDbContext<RecipeBookContext>(dbContextOptions =>
+        if (!databaseInMemory)
         {
-            dbContextOptions.UseMySql(connectionString, serverVersion);
-        });
+            var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
+            var connectionString = configurationManager.GetConnection();
+
+            services.AddDbContext<RecipeBookContext>(dbContextOptions =>
+            {
+                dbContextOptions.UseMySql(connectionString, serverVersion);
+            });
+        }
+
     }
 
     private static void AddUnityOfWork(IServiceCollection services)
@@ -45,11 +51,14 @@ public static class Bootstrapper
 
     public static void AddFluentMigrator(IServiceCollection service, IConfiguration configurationManager)
     {
+        bool.TryParse(configurationManager.GetSection("Config:DatabaseInMemory").Value, out bool databaseInMemory);
 
-
-        service.AddFluentMigratorCore().ConfigureRunner(c => c.AddMySql5()
-            .WithGlobalConnectionString(configurationManager.GetConnection())
-            .ScanIn(Assembly.Load("RecipeBook.Infrastructure"))
-            .For.All());
+        if (!databaseInMemory)
+        {
+            service.AddFluentMigratorCore().ConfigureRunner(c => c.AddMySql5()
+                .WithGlobalConnectionString(configurationManager.GetConnection())
+                .ScanIn(Assembly.Load("RecipeBook.Infrastructure"))
+                .For.All());
+        }
     }
 }

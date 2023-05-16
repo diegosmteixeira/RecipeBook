@@ -4,6 +4,7 @@ using RecipeBook.Application.Services.AutoMapper;
 using RecipeBook.Domain.Extension;
 using RecipeBook.Infrastructure;
 using RecipeBook.Infrastructure.Migrations;
+using RecipeBook.Infrastructure.Repository.RepositoryAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,9 +48,20 @@ app.Run();
 
 void DatabaseUpdate()
 {
-    var connection = builder.Configuration.GetConnectionString();
-    var databaseName = builder.Configuration.GetDatabaseName();
-    Database.CreateDatabase(connection, databaseName);
+    using var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
-    app.MigrateDatabase();
+    using var context = serviceScope.ServiceProvider.GetService<RecipeBookContext>();
+
+    bool? databaseInMemory = context?.Database?.ProviderName?.Equals("Microsoft.EntityFrameworkCore.InMemory");
+
+    if (!databaseInMemory.HasValue || !databaseInMemory.Value)
+    {
+        var connection = builder.Configuration.GetConnectionString();
+        var databaseName = builder.Configuration.GetDatabaseName();
+        Database.CreateDatabase(connection, databaseName);
+
+        app.MigrateDatabase();
+    }
 }
+
+public partial class Program { }
