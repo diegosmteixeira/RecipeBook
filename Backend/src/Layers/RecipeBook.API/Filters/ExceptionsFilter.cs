@@ -25,15 +25,28 @@ public class ExceptionsFilter : IExceptionFilter
     {
         if (context.Exception is ValidatorErrorsException)
         {
-            ExceptionHandler(context);
+            ValidatorExceptionHandler(context);
+        }
+        else if (context.Exception is InvalidLoginException)
+        {
+            LoginExceptionHandler(context);
         }
     }
-    private void ExceptionHandler(ExceptionContext context)
+
+    private void ValidatorExceptionHandler(ExceptionContext context)
     {
         var validatorErrors = context.Exception as ValidatorErrorsException;
 
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ErrorResponseJson(validatorErrors.ErrorMessages));
+    }
+
+    private void LoginExceptionHandler(ExceptionContext context)
+    {
+        var loginError = context.Exception as InvalidLoginException;
+
+        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+        context.Result = new ObjectResult(new ErrorResponseJson(loginError.Message));
     }
 
     private void ThrowUnknowException(ExceptionContext context)

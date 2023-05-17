@@ -2,9 +2,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using RecipeBook.Application.Services.Cryptography;
 using RecipeBook.Application.Services.Token;
+using RecipeBook.Application.UseCases.User.Login;
 using RecipeBook.Application.UseCases.User.Register;
 
-namespace RecipeBook.Application.Services;
+namespace RecipeBook.Application;
 
 public static class Bootstraper
 {
@@ -12,9 +13,7 @@ public static class Bootstraper
     {
         AddAdditionalPassword(services, configuration);
         AddToken(services, configuration);
-
-
-        services.AddScoped<IUserRegisterUseCase, UserRegisterUseCase>();
+        AddUseCase(services);
     }
 
     private static void AddAdditionalPassword(this IServiceCollection services, IConfiguration configuration)
@@ -29,6 +28,12 @@ public static class Bootstraper
         var sectionLifetime = configuration.GetRequiredSection("Config:TokenLifetime");
         var sectionTokenSecret = configuration.GetRequiredSection("Config:TokenSecret");
         services.AddScoped(option => new TokenConfigurator(int.Parse(sectionLifetime.Value), sectionTokenSecret.Value));
+    }
+
+    private static void AddUseCase(IServiceCollection services)
+    {
+        services.AddScoped<IUserRegisterUseCase, UserRegisterUseCase>()
+                .AddScoped<IUserLoginUseCase, UserLoginUseCase>();
     }
 
 

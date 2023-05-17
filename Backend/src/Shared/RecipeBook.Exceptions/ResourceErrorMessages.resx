@@ -135,6 +135,9 @@
   <data name="INVALID_EMAIL" xml:space="preserve">
     <value>The user's email must be valid.</value>
   </data>
+  <data name="INVALID_LOGIN" xml:space="preserve">
+    <value>Invalid Login credentials. Check the informed user's email and password again.</value>
+  </data>
   <data name="INVALID_PHONE" xml:space="preserve">
     <value>The user's phone number must be valid (XX) X XXXX-XXXX.</value>
   </data>

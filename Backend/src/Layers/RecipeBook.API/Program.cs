@@ -1,5 +1,5 @@
 using RecipeBook.API.Filters;
-using RecipeBook.Application.Services;
+using RecipeBook.Application;
 using RecipeBook.Application.Services.AutoMapper;
 using RecipeBook.Domain.Extension;
 using RecipeBook.Infrastructure;

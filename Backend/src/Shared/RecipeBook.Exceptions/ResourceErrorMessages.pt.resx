@@ -135,6 +135,9 @@
   <data name="INVALID_EMAIL" xml:space="preserve">
     <value>O campo "Email" precisa ser válido.</value>
   </data>
+  <data name="INVALID_LOGIN" xml:space="preserve">
+    <value>Informações de Login inválidas. Verifique o nome e a senha do usuário e tente novamente.</value>
+  </data>
   <data name="INVALID_PHONE" xml:space="preserve">
     <value>O campo "Telefone" precisa ser válido (XX) X XXXX-XXXX.</value>
   </data>

@@ -115,6 +115,15 @@ namespace RecipeBook.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid Login credentials. Check the informed user&apos;s email and password again..
+        /// </summary>
+        public static string INVALID_LOGIN {
+            get {
+                return ResourceManager.GetString("INVALID_LOGIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The user&apos;s phone number must be valid (XX) X XXXX-XXXX..
         /// </summary>
         public static string INVALID_PHONE {
