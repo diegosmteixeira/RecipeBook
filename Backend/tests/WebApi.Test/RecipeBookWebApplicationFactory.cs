@@ -8,6 +8,9 @@ namespace WebApi.Test;
 
 public class RecipeBookWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
 {
+    private RecipeBook.Domain.Entities.User _user;
+    private string _password;
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Test")
@@ -32,7 +35,18 @@ public class RecipeBookWebApplicationFactory<TStartup> : WebApplicationFactory<T
                 var database = scopeService.GetRequiredService<RecipeBookContext>();
 
                 database.Database.EnsureDeleted();
+
+                (_user, _password) = ContextSeedInMemory.Seed(database);
             });
     }
 
+    public RecipeBook.Domain.Entities.User UserRecovery()
+    {
+        return _user;
+    }
+
+    public string PasswordRecovery()
+    {
+        return _password;
+    }
 }

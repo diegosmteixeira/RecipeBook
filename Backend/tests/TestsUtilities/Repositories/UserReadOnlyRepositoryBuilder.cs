@@ -1,4 +1,5 @@
 ﻿using Moq;
+using RecipeBook.Domain.Entities;
 using RecipeBook.Domain.Repositories;
 
 namespace TestsUtilities.Repositories;
@@ -27,6 +28,12 @@ public class UserReadOnlyRepositoryBuilder
         if (!string.IsNullOrEmpty(email))
             _repository.Setup(i => i.CheckIfUserExists(email)).ReturnsAsync(true);
 
+        return this;
+    }
+
+    public UserReadOnlyRepositoryBuilder Login(User user)
+    {
+        _repository.Setup(u => u.Login(user.Email, user.Password)).ReturnsAsync(user);
         return this;
     }
 
