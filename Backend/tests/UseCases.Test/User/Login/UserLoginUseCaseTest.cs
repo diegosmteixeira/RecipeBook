@@ -90,7 +90,7 @@ public class UserLoginUseCaseTest
     }
 
 
-    private UserLoginUseCase CreateUserForTest(RecipeBook.Domain.Entities.User user)
+    private static UserLoginUseCase CreateUserForTest(RecipeBook.Domain.Entities.User user)
     {
         var repository = UserReadOnlyRepositoryBuilder.Instance().Login(user).Build();
         var token = TokenConfiguratorBuilder.Instance();

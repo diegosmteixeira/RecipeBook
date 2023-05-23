@@ -1,6 +1,6 @@
 ﻿using Moq;
 using RecipeBook.Domain.Entities;
-using RecipeBook.Domain.Repositories;
+using RecipeBook.Domain.Repositories.User;
 
 namespace TestsUtilities.Repositories;
 
