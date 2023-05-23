@@ -132,6 +132,9 @@
   <data name="EMPTY_PHONE" xml:space="preserve">
     <value>O campo "Telefone" não pode ser vazio.</value>
   </data>
+  <data name="INVALID_CURRENT_PASSWORD" xml:space="preserve">
+    <value>A "Senha" atual informada é inválida.</value>
+  </data>
   <data name="INVALID_EMAIL" xml:space="preserve">
     <value>O campo "Email" precisa ser válido.</value>
   </data>
@@ -144,7 +147,13 @@
   <data name="PASSWORD_LENGTH" xml:space="preserve">
     <value>A "Senha" precisa ter no mínimo 6 caracteres.</value>
   </data>
+  <data name="TOKEN_EXPIRED" xml:space="preserve">
+    <value>Faça o login novamente, por favor.</value>
+  </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
+  </data>
+  <data name="WITHOUT_PERMISSION" xml:space="preserve">
+    <value>Usuário sem permissão para acessar esse recurso.</value>
   </data>
 </root>

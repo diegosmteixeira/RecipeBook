@@ -106,6 +106,15 @@ namespace RecipeBook.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Current password is invalid..
+        /// </summary>
+        public static string INVALID_CURRENT_PASSWORD {
+            get {
+                return ResourceManager.GetString("INVALID_CURRENT_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The user&apos;s email must be valid..
         /// </summary>
         public static string INVALID_EMAIL {
@@ -142,11 +151,29 @@ namespace RecipeBook.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Login again, please..
+        /// </summary>
+        public static string TOKEN_EXPIRED {
+            get {
+                return ResourceManager.GetString("TOKEN_EXPIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Unknown Error..
         /// </summary>
         public static string UNKNOWN_ERROR {
             get {
                 return ResourceManager.GetString("UNKNOWN_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a User without permission to access this resource..
+        /// </summary>
+        public static string WITHOUT_PERMISSION {
+            get {
+                return ResourceManager.GetString("WITHOUT_PERMISSION", resourceCulture);
             }
         }
     }

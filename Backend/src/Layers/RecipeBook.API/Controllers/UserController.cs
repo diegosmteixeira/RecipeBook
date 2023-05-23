@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RecipeBook.API.Filters;
+using RecipeBook.Application.UseCases.User.ChangePassword;
 using RecipeBook.Application.UseCases.User.Register;
 using RecipeBook.Communication.Request;
 using RecipeBook.Communication.Response;
@@ -15,5 +17,18 @@ public class UserController : RecipeBookController
         var result = await useCase.Execute(request);
 
         return Created(string.Empty, result);
+    }
+
+    [HttpPut]
+    [Route("change-password")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ServiceFilter(typeof(AuthorizationAttribute))]
+    public async Task<IActionResult> ChangePassword([FromServices] IChangePasswordUseCase useCase,
+                                                        [FromBody] RequestChangePasswordJson request)
+    {
+        await useCase.Execute(request);
+
+        return NoContent();
+
     }
 }

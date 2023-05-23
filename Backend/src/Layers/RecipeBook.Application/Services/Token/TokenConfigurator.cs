@@ -38,7 +38,7 @@ public class TokenConfigurator
         return tokenHander.WriteToken(securityToken);
     }
 
-    public void ValidateToken(string token)
+    public ClaimsPrincipal ValidateToken(string token)
     {
         var tokenHander = new JwtSecurityTokenHandler();
 
@@ -51,7 +51,16 @@ public class TokenConfigurator
             ValidateAudience = false
         };
 
-        tokenHander.ValidateToken(token, validateParams, out _);
+        var claims = tokenHander.ValidateToken(token, validateParams, out _);
+
+        return claims;
+    }
+
+    public string EmailRecovery(string token)
+    {
+        var claims = ValidateToken(token);
+
+        return claims.FindFirst(EmailAlias).Value;
     }
 
     private SymmetricSecurityKey SymmetricKey()

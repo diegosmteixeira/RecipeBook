@@ -23,10 +23,10 @@
 							"\r",
 							"pm.environment.set(\"phoneNumber\", phoneNumber)\r",
 							"\r",
-							"let password = pm.variables.replaceIn('{{$randomPassword}}')\r",
+							"let pass = pm.variables.replaceIn('{{$randomPassword}}')\r",
 							"let email = pm.variables.replaceIn('{{$randomEmail}}')\r",
 							"\r",
-							"postman.setGlobalVariable(\"PASSWORD\", password);\r",
+							"postman.setGlobalVariable(\"PASSWORD\", pass);\r",
 							"postman.setGlobalVariable(\"EMAIL\", email);"
 						],
 						"type": "text/javascript"
@@ -86,6 +86,9 @@
 							"    pm.response.to.be.json;\r",
 							"    pm.response.to.have.jsonBody(\"name\");\r",
 							"    pm.response.to.have.jsonBody(\"token\");\r",
+							"\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"TOKEN\", jsonData.token)\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -141,6 +144,119 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"email\": \"email@invalid.com\",\r\n    \"password\": \"invalidPassword\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/login",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ChangePassword",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Change User Password\", function(){\r",
+							"    pm.response.to.have.status(204);\r",
+							"\r",
+							"    var newPassword = postman.getGlobalVariable(\"NEWPASSWORD\");\r",
+							"\r",
+							"    pm.environment.set(\"PASSWORD\", newPassword);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let newPassword = pm.variables.replaceIn('{{$randomPassword}}')\r",
+							"\r",
+							"postman.setGlobalVariable(\"NEWPASSWORD\", newPassword);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"currentPassword\": \"{{PASSWORD}}\",\r\n  \"newPassword\": \"{{NEWPASSWORD}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/user/change-password",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"change-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserLogin After Password Changed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"SignIn API\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.response.to.have.jsonBody(\"name\");\r",
+							"    pm.response.to.have.jsonBody(\"token\");\r",
+							"\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"TOKEN\", jsonData.token)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{EMAIL}}\",\r\n    \"password\": \"{{PASSWORD}}\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

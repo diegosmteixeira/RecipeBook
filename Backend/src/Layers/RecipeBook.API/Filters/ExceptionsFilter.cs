@@ -21,7 +21,7 @@ public class ExceptionsFilter : IExceptionFilter
         }
     }
 
-    private void PersonalizeException(ExceptionContext context)
+    private static void PersonalizeException(ExceptionContext context)
     {
         if (context.Exception is ValidatorErrorsException)
         {
@@ -33,7 +33,7 @@ public class ExceptionsFilter : IExceptionFilter
         }
     }
 
-    private void ValidatorExceptionHandler(ExceptionContext context)
+    private static void ValidatorExceptionHandler(ExceptionContext context)
     {
         var validatorErrors = context.Exception as ValidatorErrorsException;
 
@@ -41,7 +41,7 @@ public class ExceptionsFilter : IExceptionFilter
         context.Result = new ObjectResult(new ErrorResponseJson(validatorErrors.ErrorMessages));
     }
 
-    private void LoginExceptionHandler(ExceptionContext context)
+    private static void LoginExceptionHandler(ExceptionContext context)
     {
         var loginError = context.Exception as InvalidLoginException;
 
@@ -49,7 +49,7 @@ public class ExceptionsFilter : IExceptionFilter
         context.Result = new ObjectResult(new ErrorResponseJson(loginError.Message));
     }
 
-    private void ThrowUnknowException(ExceptionContext context)
+    private static void ThrowUnknowException(ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         context.Result = new ObjectResult(new ErrorResponseJson(ResourceErrorMessages.UNKNOWN_ERROR));
