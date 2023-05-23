@@ -22,6 +22,7 @@ public class RecipeBookWebApplicationFactory<TStartup> : WebApplicationFactory<T
                     services.Remove(describer);
 
                 var provider = services.AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
+
                 services.AddDbContext<RecipeBookContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
@@ -32,6 +33,7 @@ public class RecipeBookWebApplicationFactory<TStartup> : WebApplicationFactory<T
 
                 using var scope = serviceProvider.CreateScope();
                 var scopeService = scope.ServiceProvider;
+
                 var database = scopeService.GetRequiredService<RecipeBookContext>();
 
                 database.Database.EnsureDeleted();

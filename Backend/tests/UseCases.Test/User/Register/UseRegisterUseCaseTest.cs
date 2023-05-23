@@ -57,7 +57,7 @@ public class UseRegisterUseCaseTest
                 exception.ErrorMessages.Contains(ResourceErrorMessages.EMPTY_EMAIL));
     }
 
-    private UserRegisterUseCase CreateUseCase(string email = "")
+    private static UserRegisterUseCase CreateUseCase(string email = "")
     {
         var mapper = MapperBuilder.Instance();
         var repository = UserWriteOnlyRepositoryBuilder.Instance().Build();

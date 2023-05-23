@@ -6,6 +6,12 @@ public class TokenConfiguratorBuilder
 {
     public static TokenConfigurator Instance()
     {
-        return new TokenConfigurator(1000, "$2oxYFsg](5Y%yMtKI0|Zx%5V8uKal3aONdr6YPfsg`an*sU:l*el!DCm#EP;iU");
+        return new TokenConfigurator(1000, "eA+sawaEtcnnq%N_1<-Sh0E'Yk4.hMyiM;fIp0;~]z\\u4ofM2j)2yYKhMbF^ti=");
+    }
+
+    public static TokenConfigurator ExpiredToken()
+    {
+        return new TokenConfigurator(0.0166667, "eA+sawaEtcnnq%N_1<-Sh0E'Yk4.hMyiM;fIp0;~]z\\u4ofM2j)2yYKhMbF^ti=");
     }
 }
+
