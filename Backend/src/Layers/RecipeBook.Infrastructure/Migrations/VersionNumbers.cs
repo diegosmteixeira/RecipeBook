@@ -2,6 +2,7 @@
 {
     public enum VersionNumbers
     {
-        CreateUserTable = 1
+        CreateUserTable = 1,
+        CreateRecipeTable = 2
     }
 }
