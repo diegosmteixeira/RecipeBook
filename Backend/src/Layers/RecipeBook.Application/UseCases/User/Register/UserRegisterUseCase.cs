@@ -4,6 +4,7 @@ using RecipeBook.Application.Services.Token;
 using RecipeBook.Communication.Request;
 using RecipeBook.Communication.Response;
 using RecipeBook.Domain.Repositories;
+using RecipeBook.Domain.Repositories.User;
 using RecipeBook.Exception;
 using RecipeBook.Exception.ExceptionsBase;
 

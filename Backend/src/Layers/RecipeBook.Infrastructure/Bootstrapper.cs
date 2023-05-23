@@ -7,12 +7,13 @@ using RecipeBook.Infrastructure.Repository;
 using RecipeBook.Infrastructure.Repository.RepositoryAccess;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using RecipeBook.Domain.Repositories.User;
 
 namespace RecipeBook.Infrastructure;
 
 public static class Bootstrapper
 {
-    public static void AddRepository(this IServiceCollection services, IConfiguration configurationManager)
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configurationManager)
     {
         AddFluentMigrator(services, configurationManager);
 
@@ -23,7 +24,7 @@ public static class Bootstrapper
 
     private static void AddContext(IServiceCollection services, IConfiguration configurationManager)
     {
-        bool.TryParse(configurationManager.GetSection("Config:DatabaseInMemory").Value, out bool databaseInMemory);
+        _ = bool.TryParse(configurationManager.GetSection("Configurations:DatabaseInMemory").Value, out bool databaseInMemory);
 
         if (!databaseInMemory)
         {
@@ -46,12 +47,13 @@ public static class Bootstrapper
     private static void AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>()
-                .AddScoped<IUserReadOnlyRepository, UserRepository>();
+                .AddScoped<IUserReadOnlyRepository, UserRepository>()
+                .AddScoped<IUserUpdateOnlyRepository, UserRepository>();
     }
 
     public static void AddFluentMigrator(IServiceCollection service, IConfiguration configurationManager)
     {
-        bool.TryParse(configurationManager.GetSection("Config:DatabaseInMemory").Value, out bool databaseInMemory);
+        _ = bool.TryParse(configurationManager.GetSection("Configurations:DatabaseInMemory").Value, out bool databaseInMemory);
 
         if (!databaseInMemory)
         {

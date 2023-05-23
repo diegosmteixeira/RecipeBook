@@ -132,6 +132,9 @@
   <data name="EMPTY_USERNAME" xml:space="preserve">
     <value>The user's name is required.</value>
   </data>
+  <data name="INVALID_CURRENT_PASSWORD" xml:space="preserve">
+    <value>Current password is invalid.</value>
+  </data>
   <data name="INVALID_EMAIL" xml:space="preserve">
     <value>The user's email must be valid.</value>
   </data>
@@ -144,7 +147,13 @@
   <data name="PASSWORD_LENGTH" xml:space="preserve">
     <value>The user's password must be 6 characters.</value>
   </data>
+  <data name="TOKEN_EXPIRED" xml:space="preserve">
+    <value>Login again, please.</value>
+  </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Unknown Error.</value>
+  </data>
+  <data name="WITHOUT_PERMISSION" xml:space="preserve">
+    <value>User without permission to access this resource.</value>
   </data>
 </root>

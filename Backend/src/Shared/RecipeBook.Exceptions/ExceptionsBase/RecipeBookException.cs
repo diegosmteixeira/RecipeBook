@@ -1,5 +1,8 @@
-﻿namespace RecipeBook.Exception.ExceptionsBase;
+﻿using System.Runtime.Serialization;
 
+namespace RecipeBook.Exception.ExceptionsBase;
+
+[Serializable]
 public class RecipeBookException : SystemException
 {
     public RecipeBookException()
@@ -7,6 +10,10 @@ public class RecipeBookException : SystemException
     }
 
     public RecipeBookException(string message) : base(message)
-    {        
+    {
+    }
+
+    protected RecipeBookException(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
     }
 }
