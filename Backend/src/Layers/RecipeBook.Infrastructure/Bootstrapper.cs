@@ -8,6 +8,7 @@ using RecipeBook.Infrastructure.Repository.RepositoryAccess;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using RecipeBook.Domain.Repositories.User;
+using RecipeBook.Domain.Repositories.Recipe;
 
 namespace RecipeBook.Infrastructure;
 
@@ -48,7 +49,8 @@ public static class Bootstrapper
     {
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>()
                 .AddScoped<IUserReadOnlyRepository, UserRepository>()
-                .AddScoped<IUserUpdateOnlyRepository, UserRepository>();
+                .AddScoped<IUserUpdateOnlyRepository, UserRepository>()
+                .AddScoped<IRecipeWriteOnlyRepository, RecipeRepository>();
     }
 
     public static void AddFluentMigrator(IServiceCollection service, IConfiguration configurationManager)

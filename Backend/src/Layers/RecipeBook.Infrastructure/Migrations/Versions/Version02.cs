@@ -30,7 +30,7 @@ public class Version02 : Migration
         var table = BaseVersion.InsertStandardColumns(Create.Table("Ingredients"));
 
         table
-            .WithColumn("Ingredient").AsString(100).NotNullable()
+            .WithColumn("Name").AsString(100).NotNullable()
             .WithColumn("Measurement").AsInt16().NotNullable()
             .WithColumn("RecipeId").AsInt64().NotNullable().ForeignKey("FK_Ingredient_RecipeId", "Recipes", "Id");
     }
