@@ -21,8 +21,9 @@ public class Version02 : Migration
 
         table
             .WithColumn("Title").AsString(100).NotNullable()
-            .WithColumn("Categories").AsInt16().NotNullable()
-            .WithColumn("Instructions").AsString(5000).NotNullable();
+            .WithColumn("Category").AsInt16().NotNullable()
+            .WithColumn("Instructions").AsString(5000).NotNullable()
+            .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("FK_Recipe_User_Id", "Users", "Id");
     }
 
     private void CreateTableIngredients()
@@ -31,7 +32,7 @@ public class Version02 : Migration
 
         table
             .WithColumn("Name").AsString(100).NotNullable()
-            .WithColumn("Measurement").AsInt16().NotNullable()
-            .WithColumn("RecipeId").AsInt64().NotNullable().ForeignKey("FK_Ingredient_RecipeId", "Recipes", "Id");
+            .WithColumn("Measurement").AsString(100).NotNullable()
+            .WithColumn("RecipeId").AsInt64().NotNullable().ForeignKey("FK_Ingredient_Recipe_Id", "Recipes", "Id");
     }
 }

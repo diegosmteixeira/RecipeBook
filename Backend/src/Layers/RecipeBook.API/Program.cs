@@ -1,3 +1,4 @@
+using HashidsNet;
 using RecipeBook.API.Filters;
 using RecipeBook.API.Middleware;
 using RecipeBook.Application;
@@ -6,6 +7,7 @@ using RecipeBook.Domain.Extension;
 using RecipeBook.Infrastructure;
 using RecipeBook.Infrastructure.Migrations;
 using RecipeBook.Infrastructure.Repository.RepositoryAccess;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,7 @@ builder.Services.AddRouting(option => option.LowercaseUrls = true);
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -26,7 +28,7 @@ builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionsFilter))
 
 builder.Services.AddScoped(provider => new AutoMapper.MapperConfiguration(config =>
 {
-    config.AddProfile(new AutoMapperConfiguration());
+    config.AddProfile(new AutoMapperConfiguration(provider.GetService<IHashids>()));
 }).CreateMapper());
 
 builder.Services.AddScoped<AuthorizationAttribute>();

@@ -275,6 +275,63 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Recipe Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate if the recipe register is succeeded\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.withBody;\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.response.to.have.jsonBody(\"id\");\r",
+							"    pm.response.to.have.jsonBody(\"title\");\r",
+							"    pm.response.to.have.jsonBody(\"category\");\r",
+							"    pm.response.to.have.jsonBody(\"instructions\");\r",
+							"    pm.response.to.have.jsonBody(\"ingredients\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"{{$randomNoun}}\",\r\n  \"category\": 2,\r\n  \"instructions\": \"{{$randomLoremParagraph}}\",\r\n  \"ingredients\": [\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/recipes",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"recipes"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
