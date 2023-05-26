@@ -79,6 +79,42 @@ namespace RecipeBook.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Empty ingredient name..
+        /// </summary>
+        public static string EMPTY_INGREDIENT_NAME {
+            get {
+                return ResourceManager.GetString("EMPTY_INGREDIENT_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Recipe must be contain ingredients..
+        /// </summary>
+        public static string EMPTY_INGREDIENTS {
+            get {
+                return ResourceManager.GetString("EMPTY_INGREDIENTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Recipe must be contain instructions to be prepared..
+        /// </summary>
+        public static string EMPTY_INSTRUCTIONS {
+            get {
+                return ResourceManager.GetString("EMPTY_INSTRUCTIONS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Empty measurement..
+        /// </summary>
+        public static string EMPTY_MEASUREMENT {
+            get {
+                return ResourceManager.GetString("EMPTY_MEASUREMENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The user&apos;s password is required..
         /// </summary>
         public static string EMPTY_PASSWORD {
@@ -97,11 +133,29 @@ namespace RecipeBook.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Recipe must be contain a title..
+        /// </summary>
+        public static string EMPTY_TITLE {
+            get {
+                return ResourceManager.GetString("EMPTY_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The user&apos;s name is required..
         /// </summary>
         public static string EMPTY_USERNAME {
             get {
                 return ResourceManager.GetString("EMPTY_USERNAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid informed category..
+        /// </summary>
+        public static string INVALID_CATEGORY {
+            get {
+                return ResourceManager.GetString("INVALID_CATEGORY", resourceCulture);
             }
         }
         
@@ -147,6 +201,15 @@ namespace RecipeBook.Exception {
         public static string PASSWORD_LENGTH {
             get {
                 return ResourceManager.GetString("PASSWORD_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Repeated ingredient..
+        /// </summary>
+        public static string REPEATED_INGREDIENTS {
+            get {
+                return ResourceManager.GetString("REPEATED_INGREDIENTS", resourceCulture);
             }
         }
         

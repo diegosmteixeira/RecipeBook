@@ -18,8 +18,9 @@ namespace WebApi.Test.V1
             ResourceErrorMessages.Culture = CultureInfo.CurrentCulture;  
         }
 
-        protected async Task<HttpResponseMessage> PostRequest(string method, object body)
+        protected async Task<HttpResponseMessage> PostRequest(string method, object body, string token = "")
         {
+            AuthorizeRequest(token);
             var jsonString = JsonConvert.SerializeObject(body);
             return await _httpClient.PostAsync(method, new StringContent(jsonString, Encoding.UTF8, "application/json"));
         }

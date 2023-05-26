@@ -123,6 +123,18 @@
   <data name="EMPTY_EMAIL" xml:space="preserve">
     <value>O campo "Email" não pode ser vazio.</value>
   </data>
+  <data name="EMPTY_INGREDIENTS" xml:space="preserve">
+    <value>A receita deve conter ingredientes.</value>
+  </data>
+  <data name="EMPTY_INGREDIENT_NAME" xml:space="preserve">
+    <value>O nome do ingrediente deve ser informado.</value>
+  </data>
+  <data name="EMPTY_INSTRUCTIONS" xml:space="preserve">
+    <value>A receita precisa conter instruções para preparo.</value>
+  </data>
+  <data name="EMPTY_MEASUREMENT" xml:space="preserve">
+    <value>A quantidade do ingrediente deve ser informada.</value>
+  </data>
   <data name="EMPTY_NAME" xml:space="preserve">
     <value>O campo "Nome" não pode ser vazio.</value>
   </data>
@@ -131,6 +143,12 @@
   </data>
   <data name="EMPTY_PHONE" xml:space="preserve">
     <value>O campo "Telefone" não pode ser vazio.</value>
+  </data>
+  <data name="EMPTY_TITLE" xml:space="preserve">
+    <value>A receita precisa conter um título.</value>
+  </data>
+  <data name="INVALID_CATEGORY" xml:space="preserve">
+    <value>Categoria de informada inválida.</value>
   </data>
   <data name="INVALID_CURRENT_PASSWORD" xml:space="preserve">
     <value>A "Senha" atual informada é inválida.</value>
@@ -146,6 +164,9 @@
   </data>
   <data name="PASSWORD_LENGTH" xml:space="preserve">
     <value>A "Senha" precisa ter no mínimo 6 caracteres.</value>
+  </data>
+  <data name="REPEATED_INGREDIENTS" xml:space="preserve">
+    <value>Ingredientes repetidos.</value>
   </data>
   <data name="TOKEN_EXPIRED" xml:space="preserve">
     <value>Faça o login novamente, por favor.</value>

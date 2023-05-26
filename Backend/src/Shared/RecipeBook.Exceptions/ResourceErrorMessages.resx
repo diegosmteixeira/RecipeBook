@@ -123,14 +123,32 @@
   <data name="EMPTY_EMAIL" xml:space="preserve">
     <value>The user's email is required.</value>
   </data>
+  <data name="EMPTY_INGREDIENTS" xml:space="preserve">
+    <value>Recipe must be contain ingredients.</value>
+  </data>
+  <data name="EMPTY_INGREDIENT_NAME" xml:space="preserve">
+    <value>Empty ingredient name.</value>
+  </data>
+  <data name="EMPTY_INSTRUCTIONS" xml:space="preserve">
+    <value>Recipe must be contain instructions to be prepared.</value>
+  </data>
+  <data name="EMPTY_MEASUREMENT" xml:space="preserve">
+    <value>Empty measurement.</value>
+  </data>
   <data name="EMPTY_PASSWORD" xml:space="preserve">
     <value>The user's password is required.</value>
   </data>
   <data name="EMPTY_PHONE" xml:space="preserve">
     <value>Thre user's phone is required.</value>
   </data>
+  <data name="EMPTY_TITLE" xml:space="preserve">
+    <value>Recipe must be contain a title.</value>
+  </data>
   <data name="EMPTY_USERNAME" xml:space="preserve">
     <value>The user's name is required.</value>
+  </data>
+  <data name="INVALID_CATEGORY" xml:space="preserve">
+    <value>Invalid informed category.</value>
   </data>
   <data name="INVALID_CURRENT_PASSWORD" xml:space="preserve">
     <value>Current password is invalid.</value>
@@ -146,6 +164,9 @@
   </data>
   <data name="PASSWORD_LENGTH" xml:space="preserve">
     <value>The user's password must be 6 characters.</value>
+  </data>
+  <data name="REPEATED_INGREDIENTS" xml:space="preserve">
+    <value>Repeated ingredient.</value>
   </data>
   <data name="TOKEN_EXPIRED" xml:space="preserve">
     <value>Login again, please.</value>
