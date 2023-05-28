@@ -33,6 +33,7 @@ public class Version02 : Migration
         table
             .WithColumn("Name").AsString(100).NotNullable()
             .WithColumn("Measurement").AsString(100).NotNullable()
-            .WithColumn("RecipeId").AsInt64().NotNullable().ForeignKey("FK_Ingredient_Recipe_Id", "Recipes", "Id");
+            .WithColumn("RecipeId").AsInt64().NotNullable().ForeignKey("FK_Ingredient_Recipe_Id", "Recipes", "Id")
+            .OnDeleteOrUpdate(System.Data.Rule.Cascade);
     }
 }

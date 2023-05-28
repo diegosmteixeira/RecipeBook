@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecipeBook.API.Filters;
+using RecipeBook.Application.UseCases.Recipe.Delete;
 using RecipeBook.Application.UseCases.Recipe.Recover;
 using RecipeBook.Application.UseCases.Recipe.Register;
 using RecipeBook.Application.UseCases.Recipe.Update;
@@ -39,6 +40,17 @@ public class RecipesController : RecipeBookController
                                             [FromRoute] [ModelBinder(typeof(Binder.HashidsModelBinder))] long id)
     {
         await useCase.Execute(id, request);
+
+        return NoContent();
+    }
+
+    [HttpDelete]
+    [Route("{id:hashids}")]
+    [ProducesResponseType(typeof(ResponseRecipeJson), StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Delete([FromServices] IRecipeDeleteUseCase useCase,
+                                            [FromRoute] [ModelBinder(typeof(Binder.HashidsModelBinder))] long id)
+    {
+        await useCase.Execute(id);
 
         return NoContent();
     }

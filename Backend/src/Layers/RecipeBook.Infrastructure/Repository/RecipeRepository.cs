@@ -41,4 +41,11 @@ public class RecipeRepository : IRecipeWriteOnlyRepository, IRecipeReadOnlyRepos
     {
         _context.Recipes.Update(recipe);
     }
+
+    public async Task Delete(long recipeId)
+    {
+        var recipe = await _context.Recipes.FirstOrDefaultAsync(r => r.Id == recipeId);
+
+        _context.Recipes.Remove(recipe);
+    }
 }
