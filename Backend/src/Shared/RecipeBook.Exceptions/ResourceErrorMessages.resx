@@ -165,6 +165,9 @@
   <data name="PASSWORD_LENGTH" xml:space="preserve">
     <value>The user's password must be 6 characters.</value>
   </data>
+  <data name="RECIPE_NOTFOUND" xml:space="preserve">
+    <value>Recipe was not found.</value>
+  </data>
   <data name="REPEATED_INGREDIENTS" xml:space="preserve">
     <value>Repeated ingredient.</value>
   </data>

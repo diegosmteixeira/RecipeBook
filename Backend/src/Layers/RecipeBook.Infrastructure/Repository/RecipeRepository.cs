@@ -22,4 +22,11 @@ public class RecipeRepository : IRecipeWriteOnlyRepository, IRecipeReadOnlyRepos
             .Include(r => r.Ingredients)
             .Where(r => r.UserId == userId).ToListAsync();
     }
+
+    public async Task<Recipe> RecipeRecoveryById(long recipeId)
+    {
+        return await _context.Recipes.AsNoTracking()
+            .Include(r => r.Ingredients)
+            .Where(r => recipeId == r.Id).FirstOrDefaultAsync();
+    }
 }

@@ -205,6 +205,15 @@ namespace RecipeBook.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Recipe was not found..
+        /// </summary>
+        public static string RECIPE_NOTFOUND {
+            get {
+                return ResourceManager.GetString("RECIPE_NOTFOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Repeated ingredient..
         /// </summary>
         public static string REPEATED_INGREDIENTS {

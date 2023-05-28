@@ -1,5 +1,6 @@
 using HashidsNet;
 using RecipeBook.API.Filters;
+using RecipeBook.API.Filters.Swagger;
 using RecipeBook.API.Middleware;
 using RecipeBook.Application;
 using RecipeBook.Application.Services.AutoMapper;
@@ -19,7 +20,10 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(option =>
+{
+    option.OperationFilter<HashidsOperationFilter>();
+});
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);

@@ -165,6 +165,9 @@
   <data name="PASSWORD_LENGTH" xml:space="preserve">
     <value>A "Senha" precisa ter no mínimo 6 caracteres.</value>
   </data>
+  <data name="RECIPE_NOTFOUND" xml:space="preserve">
+    <value>Receita não encontrada.</value>
+  </data>
   <data name="REPEATED_INGREDIENTS" xml:space="preserve">
     <value>Ingredientes repetidos.</value>
   </data>

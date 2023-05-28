@@ -4,6 +4,7 @@ using RecipeBook.Application.Services.Cryptography;
 using RecipeBook.Application.Services.LoggedUser;
 using RecipeBook.Application.Services.Token;
 using RecipeBook.Application.UseCases.Dashboard;
+using RecipeBook.Application.UseCases.Recipe.Recover;
 using RecipeBook.Application.UseCases.Recipe.Register;
 using RecipeBook.Application.UseCases.User.ChangePassword;
 using RecipeBook.Application.UseCases.User.Login;
@@ -58,6 +59,7 @@ public static class Bootstraper
                 .AddScoped<IUserLoginUseCase, UserLoginUseCase>()
                 .AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>()
                 .AddScoped<IRegisterRecipeUseCase, RegisterRecipeUseCase>()
-                .AddScoped<IDashboardUseCase, DashboardUseCase>();
+                .AddScoped<IDashboardUseCase, DashboardUseCase>()
+                .AddScoped<IRecipeRecoveryByIdUseCase, RecipeRecoveryByIdUseCase>();
     }
 }
