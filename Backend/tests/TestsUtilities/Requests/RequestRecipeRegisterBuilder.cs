@@ -5,22 +5,22 @@ using RecipeBook.Communication.Request;
 namespace TestsUtilities.Requests;
 public class RequestRecipeRegisterBuilder
 {
-    public static RequestRecipeRegisterJson Build()
+    public static RequestRecipeJson Build()
     {
-        return new Faker<RequestRecipeRegisterJson>()
+        return new Faker<RequestRecipeJson>()
             .RuleFor(r => r.Title, f => f.Lorem.Word())
             .RuleFor(r => r.Category, f => f.PickRandom<Category>())
             .RuleFor(r => r.Instructions, f => f.Lorem.Paragraph())
             .RuleFor(r => r.Ingredients, f => Ingredients(f));
     }
 
-    private static List<RequestIngredientRegisterJson> Ingredients(Faker faker)
+    private static List<RequestIngredientJson> Ingredients(Faker faker)
     {
-        List<RequestIngredientRegisterJson> ingredients = new();
+        List<RequestIngredientJson> ingredients = new();
 
         for (int i = 0; i < faker.Random.Int(1, 5); i++)
         {
-            ingredients.Add(new RequestIngredientRegisterJson()
+            ingredients.Add(new RequestIngredientJson()
             {
                 Name = faker.Commerce.ProductName(),
                 Measurement = $"{faker.Random.Double(1, 10)} {faker.Random.Word()}"

@@ -2,10 +2,10 @@
 using RecipeBook.Communication.Request;
 using RecipeBook.Exception;
 
-namespace RecipeBook.Application.UseCases.Recipe.Register;
-public class RegisterRecipeValidator : AbstractValidator<RequestRecipeRegisterJson>
+namespace RecipeBook.Application.UseCases.Recipe;
+public class RecipeValidator : AbstractValidator<RequestRecipeJson>
 {
-    public RegisterRecipeValidator()
+    public RecipeValidator()
     {
         RuleFor(r => r.Title).NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_TITLE);
         RuleFor(r => r.Category).IsInEnum().WithMessage(ResourceErrorMessages.INVALID_CATEGORY);

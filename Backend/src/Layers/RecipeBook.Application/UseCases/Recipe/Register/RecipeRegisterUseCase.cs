@@ -7,13 +7,13 @@ using RecipeBook.Domain.Repositories.Recipe;
 using RecipeBook.Exception.ExceptionsBase;
 
 namespace RecipeBook.Application.UseCases.Recipe.Register;
-public class RegisterRecipeUseCase : IRegisterRecipeUseCase
+public class RecipeRegisterUseCase : IRecipeRegisterUseCase
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUserLogged _userLogged;
     private readonly IRecipeWriteOnlyRepository _repository;
-    public RegisterRecipeUseCase(IMapper mapper,
+    public RecipeRegisterUseCase(IMapper mapper,
                                  IUnitOfWork unitOfWork,
                                  IUserLogged userLogged, 
                                  IRecipeWriteOnlyRepository repository)
@@ -23,7 +23,7 @@ public class RegisterRecipeUseCase : IRegisterRecipeUseCase
         _userLogged = userLogged;
         _repository = repository;
     }
-    public async Task<ResponseRecipeJson> Execute(RequestRecipeRegisterJson request)
+    public async Task<ResponseRecipeJson> Execute(RequestRecipeJson request)
     {
         Validate(request);
 
@@ -38,9 +38,9 @@ public class RegisterRecipeUseCase : IRegisterRecipeUseCase
         return _mapper.Map<ResponseRecipeJson>(recipe);
     }
 
-    private void Validate(RequestRecipeRegisterJson request)
+    private void Validate(RequestRecipeJson request)
     {
-        var validator = new RegisterRecipeValidator();
+        var validator = new RecipeRegisterValidator();
         var result = validator.Validate(request);
 
         if (!result.IsValid) 

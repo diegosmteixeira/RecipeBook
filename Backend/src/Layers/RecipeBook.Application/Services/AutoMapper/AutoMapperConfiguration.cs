@@ -20,9 +20,9 @@ public class AutoMapperConfiguration : Profile
         CreateMap<Communication.Request.RequestUserRegisterJson, Domain.Entities.User>()
             .ForMember(destinationMember => destinationMember.Password, config => config.Ignore());
 
-        CreateMap<Communication.Request.RequestRecipeRegisterJson, Domain.Entities.Recipe>();
+        CreateMap<Communication.Request.RequestRecipeJson, Domain.Entities.Recipe>();
 
-        CreateMap<Communication.Request.RequestIngredientRegisterJson, Domain.Entities.Ingredient>();
+        CreateMap<Communication.Request.RequestIngredientJson, Domain.Entities.Ingredient>();
     }
 
     private void EntityToResponse()

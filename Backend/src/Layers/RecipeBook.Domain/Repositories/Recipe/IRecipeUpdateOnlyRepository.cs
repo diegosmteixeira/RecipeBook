@@ -1,6 +1,6 @@
 ﻿namespace RecipeBook.Domain.Repositories.Recipe;
-public interface IRecipeReadOnlyRepositoy
+public interface IRecipeUpdateOnlyRepository
 {
-    Task<IList<Entities.Recipe>> RecipeRecovery(long userId);
     Task<Entities.Recipe> RecipeRecoveryById(long recipeId);
+    void Update(Entities.Recipe recipe);
 }

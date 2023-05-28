@@ -2,7 +2,7 @@
 using RecipeBook.Communication.Response;
 
 namespace RecipeBook.Application.UseCases.Recipe.Register;
-public interface IRegisterRecipeUseCase
+public interface IRecipeRegisterUseCase
 {
-    Task<ResponseRecipeJson> Execute(RequestRecipeRegisterJson request);
+    Task<ResponseRecipeJson> Execute(RequestRecipeJson request);
 }

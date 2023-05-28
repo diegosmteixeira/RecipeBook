@@ -4,7 +4,7 @@ using RecipeBook.Domain.Repositories.Recipe;
 using RecipeBook.Infrastructure.Repository.RepositoryAccess;
 
 namespace RecipeBook.Infrastructure.Repository;
-public class RecipeRepository : IRecipeWriteOnlyRepository, IRecipeReadOnlyRepositoy
+public class RecipeRepository : IRecipeWriteOnlyRepository, IRecipeReadOnlyRepository, IRecipeUpdateOnlyRepository
 {
     private readonly RecipeBookContext _context;
     public RecipeRepository(RecipeBookContext context)
@@ -23,10 +23,22 @@ public class RecipeRepository : IRecipeWriteOnlyRepository, IRecipeReadOnlyRepos
             .Where(r => r.UserId == userId).ToListAsync();
     }
 
-    public async Task<Recipe> RecipeRecoveryById(long recipeId)
+    async Task<Recipe> IRecipeReadOnlyRepository.RecipeRecoveryById(long recipeId)
     {
         return await _context.Recipes.AsNoTracking()
             .Include(r => r.Ingredients)
-            .Where(r => recipeId == r.Id).FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(r => recipeId == r.Id);
+    }
+
+    async Task<Recipe> IRecipeUpdateOnlyRepository.RecipeRecoveryById(long recipeId)
+    {
+        return await _context.Recipes
+            .Include(r => r.Ingredients)
+            .FirstOrDefaultAsync(r => recipeId == r.Id);
+    }
+
+    public void Update(Recipe recipe)
+    {
+        _context.Recipes.Update(recipe);
     }
 }

@@ -55,13 +55,13 @@ public class RegisterRecipeUseCaseTest
                 exception.ErrorMessages.Contains(ResourceErrorMessages.EMPTY_INGREDIENTS));
     }
 
-    private static RegisterRecipeUseCase CreateUseCase(RecipeBook.Domain.Entities.User user)
+    private static RecipeRegisterUseCase CreateUseCase(RecipeBook.Domain.Entities.User user)
     {
         var mapper = MapperBuilder.Instance();
         var unitOfWork = UnitOfWorkBuilder.Instance().Build();
         var userLogged = UserLoggedBuilder.Instance().UserRecovery(user).Build();
         var repository = RecipeWriteOnlyRepositoryBuilder.Instance().Build();
 
-        return new RegisterRecipeUseCase(mapper, unitOfWork, userLogged,  repository);
+        return new RecipeRegisterUseCase(mapper, unitOfWork, userLogged,  repository);
     }
 }

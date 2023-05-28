@@ -8,10 +8,10 @@ using RecipeBook.Exception.ExceptionsBase;
 namespace RecipeBook.Application.UseCases.Recipe.Recover;
 public class RecipeRecoveryByIdUseCase : IRecipeRecoveryByIdUseCase
 {
-    private readonly IRecipeReadOnlyRepositoy _repository;
+    private readonly IRecipeReadOnlyRepository _repository;
     private readonly IUserLogged _userLogged;
     private readonly IMapper _mapper;
-    public RecipeRecoveryByIdUseCase(IRecipeReadOnlyRepositoy repository,
+    public RecipeRecoveryByIdUseCase(IRecipeReadOnlyRepository repository,
                             IUserLogged userLogged,
                             IMapper mapper)
     {

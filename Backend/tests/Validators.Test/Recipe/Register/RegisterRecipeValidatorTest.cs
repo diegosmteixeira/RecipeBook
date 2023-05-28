@@ -13,7 +13,7 @@ public class RegisterRecipeValidatorTest
     public void Validate_Success()
     {
         // arrange
-        var validator = new RegisterRecipeValidator();
+        var validator = new RecipeRegisterValidator();
         var request = RequestRecipeRegisterBuilder.Build();
 
         // act
@@ -27,7 +27,7 @@ public class RegisterRecipeValidatorTest
     public void Validate_Empty_Title_Failure()
     {
         // arrange
-        var validator = new RegisterRecipeValidator();
+        var validator = new RecipeRegisterValidator();
         var request = RequestRecipeRegisterBuilder.Build();
         request.Title = "";
 
@@ -45,7 +45,7 @@ public class RegisterRecipeValidatorTest
     public void Validate_Invalid_Category_Failure()
     {
         // arrange
-        var validator = new RegisterRecipeValidator();
+        var validator = new RecipeRegisterValidator();
         var request = RequestRecipeRegisterBuilder.Build();
         request.Category = (Category)10;
 
@@ -64,7 +64,7 @@ public class RegisterRecipeValidatorTest
     public void Validate_Empty_Instructions_Failure()
     {
         // arrange
-        var validator = new RegisterRecipeValidator();
+        var validator = new RecipeRegisterValidator();
         var request = RequestRecipeRegisterBuilder.Build();
         request.Instructions = string.Empty;
 
@@ -82,7 +82,7 @@ public class RegisterRecipeValidatorTest
     public void Validate_Empty_Ingredients_Failure()
     {
         // arrange
-        var validator = new RegisterRecipeValidator();
+        var validator = new RecipeRegisterValidator();
         var request = RequestRecipeRegisterBuilder.Build();
         request.Ingredients.Clear();
 
@@ -100,7 +100,7 @@ public class RegisterRecipeValidatorTest
     public void Validate_Empty_Ingredient_Name_Failure()
     {
         // arrange
-        var validator = new RegisterRecipeValidator();
+        var validator = new RecipeRegisterValidator();
         var request = RequestRecipeRegisterBuilder.Build();
         request.Ingredients.First().Name = string.Empty;
 
@@ -118,7 +118,7 @@ public class RegisterRecipeValidatorTest
     public void Validate_Empty_Ingredient_Measurement_Failure()
     {
         // arrange
-        var validator = new RegisterRecipeValidator();
+        var validator = new RecipeRegisterValidator();
         var request = RequestRecipeRegisterBuilder.Build();
         request.Ingredients.First().Measurement = string.Empty;
 
@@ -136,7 +136,7 @@ public class RegisterRecipeValidatorTest
     public void Validate_Repeated_Ingredient_Failure()
     {
         // arrange
-        var validator = new RegisterRecipeValidator();
+        var validator = new RecipeRegisterValidator();
         var request = RequestRecipeRegisterBuilder.Build();
         request.Ingredients.Add(request.Ingredients.First());
 

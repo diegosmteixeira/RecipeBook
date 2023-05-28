@@ -442,6 +442,57 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Recipe Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate if the recipe update request is succeeded\", function(){\r",
+							"    pm.response.to.have.status(204);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"{{$randomNoun}}\",\r\n  \"category\": 2,\r\n  \"instructions\": \"{{$randomLoremParagraph}}\",\r\n  \"ingredients\": [\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    },\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    },\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    },\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/recipes/{{ID_RECIPE}}",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"recipes",
+						"{{ID_RECIPE}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [

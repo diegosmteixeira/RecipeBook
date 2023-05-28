@@ -7,10 +7,10 @@ using RecipeBook.Domain.Repositories.Recipe;
 namespace RecipeBook.Application.UseCases.Dashboard;
 public class DashboardUseCase : IDashboardUseCase
 {
-    private readonly IRecipeReadOnlyRepositoy _repository;
+    private readonly IRecipeReadOnlyRepository _repository;
     private readonly IUserLogged _userLogged;
     private readonly IMapper _mapper;
-    public DashboardUseCase(IRecipeReadOnlyRepositoy repository,
+    public DashboardUseCase(IRecipeReadOnlyRepository repository,
                             IUserLogged userLogged,
                             IMapper mapper)
     {
