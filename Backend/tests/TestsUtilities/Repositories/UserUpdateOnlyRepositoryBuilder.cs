@@ -10,7 +10,7 @@ public class UserUpdateOnlyRepositoryBuilder
 
     private UserUpdateOnlyRepositoryBuilder()
     {
-        if (_repository == null)
+        if (_repository is null)
         {
             _repository = new Mock<IUserUpdateOnlyRepository>();
         }

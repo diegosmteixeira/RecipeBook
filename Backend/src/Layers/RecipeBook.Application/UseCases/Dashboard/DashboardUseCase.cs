@@ -54,6 +54,6 @@ public class DashboardUseCase : IDashboardUseCase
                 r.Ingredients.Any(ingredient => ingredient.Name.CustomComparer(request.TitleOrIngredient))).ToList();
         }
 
-        return filtredRecipes;
+        return filtredRecipes.OrderBy(r => r.Title).ToList();
     }
 }

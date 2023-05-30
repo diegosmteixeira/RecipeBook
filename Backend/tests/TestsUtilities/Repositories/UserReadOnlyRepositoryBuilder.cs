@@ -11,7 +11,7 @@ public class UserReadOnlyRepositoryBuilder
 
     private UserReadOnlyRepositoryBuilder()
     {
-        if (_repository == null)
+        if (_repository is null)
         {
             _repository = new Mock<IUserReadOnlyRepository>();
         }
