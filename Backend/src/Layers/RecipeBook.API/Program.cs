@@ -17,9 +17,6 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-<<<<<<< Updated upstream
-builder.Services.AddSwaggerGen();
-=======
 builder.Services.AddSwaggerGen(option =>
 {
     option.OperationFilter<HashidsOperationFilter>();
@@ -47,7 +44,6 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
->>>>>>> Stashed changes
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
