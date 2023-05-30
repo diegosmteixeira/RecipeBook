@@ -17,7 +17,37 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+<<<<<<< Updated upstream
 builder.Services.AddSwaggerGen();
+=======
+builder.Services.AddSwaggerGen(option =>
+{
+    option.OperationFilter<HashidsOperationFilter>();
+    option.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "RecipeBook API", Version = "1.0" });
+    option.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Description = "JWT Authorization header using Bearer Scheme. Example: \"Authorization: Bearer {token}\""
+    });
+    option.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
+>>>>>>> Stashed changes
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
