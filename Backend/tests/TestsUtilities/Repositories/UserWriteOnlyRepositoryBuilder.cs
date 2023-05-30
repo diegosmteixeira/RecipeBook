@@ -10,7 +10,7 @@ public class UserWriteOnlyRepositoryBuilder
 
     private UserWriteOnlyRepositoryBuilder()
     {
-        if (_repository == null)
+        if (_repository is null)
         {
             _repository = new Mock<IUserWriteOnlyRepository>();
         }

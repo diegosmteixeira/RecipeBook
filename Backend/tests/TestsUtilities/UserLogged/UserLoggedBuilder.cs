@@ -12,7 +12,7 @@ public class UserLoggedBuilder
 
     private UserLoggedBuilder()
     {
-        if (_repository == null)
+        if (_repository is null)
         {
             _repository = new Mock<IUserLogged>();
         }
