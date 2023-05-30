@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using RecipeBook.Communication.Request;
+using RecipeBook.Domain.Extension;
 using RecipeBook.Exception;
 
 namespace RecipeBook.Application.UseCases.Recipe;
@@ -20,7 +21,6 @@ public class RecipeValidator : AbstractValidator<RequestRecipeJson>
 
         RuleFor(r => r.Ingredients).Custom((ingredients, context) =>
         {
-            var distinct = ingredients.Select(i => i.Name).Distinct();
             if (distinct.Count() != ingredients.Count())
             {
                 context.AddFailure(new FluentValidation.Results.ValidationFailure("Ingredients", ResourceErrorMessages.REPEATED_INGREDIENTS));

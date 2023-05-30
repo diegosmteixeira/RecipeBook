@@ -2,7 +2,9 @@
 using RecipeBook.Application.Services.LoggedUser;
 using RecipeBook.Communication.Request;
 using RecipeBook.Communication.Response;
+using RecipeBook.Domain.Extension;
 using RecipeBook.Domain.Repositories.Recipe;
+using System.Globalization;
 
 namespace RecipeBook.Application.UseCases.Dashboard;
 public class DashboardUseCase : IDashboardUseCase
@@ -44,8 +46,12 @@ public class DashboardUseCase : IDashboardUseCase
 
         if (!string.IsNullOrWhiteSpace(request.TitleOrIngredient))
         {
-            filtredRecipes = recipes.Where(r => r.Title.Contains(request.TitleOrIngredient) || 
-                r.Ingredients.Any(ingredient => ingredient.Name.Contains(request.TitleOrIngredient))).ToList();
+
+            /*filtredRecipes = recipes.Where(r => r.Title.Contains(request.TitleOrIngredient) || 
+                r.Ingredients.Any(ingredient => ingredient.Name.Contains(request.TitleOrIngredient))).ToList();*/
+            
+            filtredRecipes = recipes.Where(r => r.Title.CustomComparer(request.TitleOrIngredient) || 
+                r.Ingredients.Any(ingredient => ingredient.Name.CustomComparer(request.TitleOrIngredient))).ToList();
         }
 
         return filtredRecipes;
