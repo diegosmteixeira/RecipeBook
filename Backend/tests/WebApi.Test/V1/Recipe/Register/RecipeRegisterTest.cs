@@ -27,7 +27,7 @@ public class RecipeRegisterTest : ControllerBase
         // arrange
         var token = await Login(_user.Email, _password);
 
-        var request = RequestRecipeRegisterBuilder.Build();
+        var request = RequestRecipeBuilder.Build();
 
         //act
         var response = await PostRequest(METHOD, request, token);
@@ -51,7 +51,7 @@ public class RecipeRegisterTest : ControllerBase
         // arrange
         var token = await Login(_user.Email, _password);
 
-        var request = RequestRecipeRegisterBuilder.Build();
+        var request = RequestRecipeBuilder.Build();
         request.Ingredients.Clear();
 
         //act
