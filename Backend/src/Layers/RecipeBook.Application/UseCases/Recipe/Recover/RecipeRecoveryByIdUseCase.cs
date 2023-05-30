@@ -12,8 +12,8 @@ public class RecipeRecoveryByIdUseCase : IRecipeRecoveryByIdUseCase
     private readonly IUserLogged _userLogged;
     private readonly IMapper _mapper;
     public RecipeRecoveryByIdUseCase(IRecipeReadOnlyRepository repository,
-                            IUserLogged userLogged,
-                            IMapper mapper)
+                                     IUserLogged userLogged,
+                                     IMapper mapper)
     {
         _repository = repository;
         _userLogged = userLogged;

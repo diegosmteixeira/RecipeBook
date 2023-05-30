@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using RecipeBook.Domain.Entities;
+using RecipeBook.Communication.Request;
 using RecipeBook.Exception;
 using System.Globalization;
 using System.Text;
@@ -18,6 +18,26 @@ namespace WebApi.Test.V1
             ResourceErrorMessages.Culture = CultureInfo.CurrentCulture;  
         }
 
+        protected async Task<HttpResponseMessage> GetRequest(string method, string token = "")
+        {
+            AuthorizeRequest(token);
+
+            return await _httpClient.GetAsync(method);
+        }
+
+        protected async Task<string> GetRecipeId(string token)
+        {
+            var request = new RequestDashboardJson();
+
+            var response = await PutRequest("api/dashboard", request, token);
+
+            await using var responseBody = await response.Content.ReadAsStreamAsync();
+
+            var responseData = await JsonDocument.ParseAsync(responseBody);
+
+            return responseData.RootElement.GetProperty("recipes").EnumerateArray().First().GetProperty("id").GetString();
+        }
+
         protected async Task<HttpResponseMessage> PostRequest(string method, object body, string token = "")
         {
             AuthorizeRequest(token);
@@ -32,6 +52,14 @@ namespace WebApi.Test.V1
             var jsonString = JsonConvert.SerializeObject(body);
             return await _httpClient.PutAsync(method, new StringContent(jsonString, Encoding.UTF8, "application/json"));
         }
+
+        protected async Task<HttpResponseMessage> DeleteRequest(string method, string token = "")
+        {
+            AuthorizeRequest(token);
+
+            return await _httpClient.DeleteAsync(method);
+        }
+
 
         protected async Task<string> Login(string email, string password)
         {
@@ -52,7 +80,7 @@ namespace WebApi.Test.V1
 
         private void AuthorizeRequest(string token)
         {
-            if (!string.IsNullOrEmpty(token))
+            if (!string.IsNullOrWhiteSpace(token) && !_httpClient.DefaultRequestHeaders.Contains("Authorization"))
             {
                 _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
             }
