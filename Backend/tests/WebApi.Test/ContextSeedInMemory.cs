@@ -21,7 +21,6 @@ public class ContextSeedInMemory
     public static (RecipeBook.Domain.Entities.User user, string password) SeedUserWithoutAnyRecipe(RecipeBookContext context)
     {
         (var user, var password) = UserBuilder.BuildUser2();
-        var recipe = RecipeBuilder.Build(user);
 
         context.Users.Add(user);
 

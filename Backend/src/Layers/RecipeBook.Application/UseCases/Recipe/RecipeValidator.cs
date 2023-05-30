@@ -21,6 +21,7 @@ public class RecipeValidator : AbstractValidator<RequestRecipeJson>
 
         RuleFor(r => r.Ingredients).Custom((ingredients, context) =>
         {
+            var distinct = ingredients.Select(i => i.Name.AccentRemover().ToLower()).Distinct();
             if (distinct.Count() != ingredients.Count())
             {
                 context.AddFailure(new FluentValidation.Results.ValidationFailure("Ingredients", ResourceErrorMessages.REPEATED_INGREDIENTS));

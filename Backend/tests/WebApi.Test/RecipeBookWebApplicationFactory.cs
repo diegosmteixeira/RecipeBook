@@ -18,7 +18,7 @@ public class RecipeBookWebApplicationFactory<TStartup> : WebApplicationFactory<T
             {
                 var describer = services.SingleOrDefault(d => d.ServiceType == typeof(RecipeBookContext));
 
-                if (describer != null)
+                if (describer is not null)
                     services.Remove(describer);
 
                 var provider = services.AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();

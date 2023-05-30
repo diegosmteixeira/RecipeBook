@@ -10,7 +10,7 @@ public class UnitOfWorkBuilder
 
     private UnitOfWorkBuilder()
     {
-        if (_repository == null)
+        if (_repository is null)
         {
             _repository = new Mock<IUnitOfWork>();
         }

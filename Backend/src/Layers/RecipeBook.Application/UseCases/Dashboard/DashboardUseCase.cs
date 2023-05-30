@@ -37,6 +37,9 @@ public class DashboardUseCase : IDashboardUseCase
 
     private static IList<Domain.Entities.Recipe> Filter(RequestDashboardJson request, IList<Domain.Entities.Recipe> recipes)
     {
+        if (recipes is null)
+            return new List<Domain.Entities.Recipe>();
+
         var filtredRecipes = recipes;
 
         if (request.Category.HasValue)
@@ -54,6 +57,6 @@ public class DashboardUseCase : IDashboardUseCase
                 r.Ingredients.Any(ingredient => ingredient.Name.CustomComparer(request.TitleOrIngredient))).ToList();
         }
 
-        return filtredRecipes;
+        return filtredRecipes.OrderBy(r => r.Title).ToList();
     }
 }

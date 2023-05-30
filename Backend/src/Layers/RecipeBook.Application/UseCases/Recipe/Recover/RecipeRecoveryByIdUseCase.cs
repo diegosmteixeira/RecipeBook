@@ -32,7 +32,7 @@ public class RecipeRecoveryByIdUseCase : IRecipeRecoveryByIdUseCase
 
     private static void Validate(Domain.Entities.User user, Domain.Entities.Recipe recipe)
     {
-        if (recipe == null || recipe.UserId != user.Id)
+        if (recipe is null || recipe.UserId != user.Id)
         {
             throw new ValidatorErrorsException(new List<string> {  ResourceErrorMessages.RECIPE_NOTFOUND });
         }

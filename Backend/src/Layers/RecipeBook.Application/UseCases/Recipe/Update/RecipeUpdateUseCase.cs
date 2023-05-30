@@ -44,7 +44,7 @@ public class RecipeUpdateUseCase : IRecipeUpdateUseCase
                                  Domain.Entities.Recipe recipe,
                                  RequestRecipeJson request)
     {
-        if (recipe == null || recipe.UserId != user.Id)
+        if (recipe is null || recipe.UserId != user.Id)
         {
             throw new ValidatorErrorsException(new List<string> { ResourceErrorMessages.RECIPE_NOTFOUND });
         }
