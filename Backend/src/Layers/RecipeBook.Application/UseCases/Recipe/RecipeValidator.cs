@@ -11,6 +11,7 @@ public class RecipeValidator : AbstractValidator<RequestRecipeJson>
         RuleFor(r => r.Title).NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_TITLE);
         RuleFor(r => r.Category).IsInEnum().WithMessage(ResourceErrorMessages.INVALID_CATEGORY);
         RuleFor(r => r.Instructions).NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_INSTRUCTIONS);
+        RuleFor(r => r.PreparationTime).InclusiveBetween(1, 1000);
         RuleFor(r => r.Ingredients).NotEmpty().WithMessage(ResourceErrorMessages.EMPTY_INGREDIENTS);
 
         RuleForEach(r => r.Ingredients).ChildRules(ingredient =>

@@ -6,11 +6,7 @@ public class HashidsBuilder
 
     private HashidsBuilder()
     {
-<<<<<<< HEAD
-        if (_encripter == null)
-=======
         if (_encripter is null)
->>>>>>> hotfix/recipe-adjustments
             _encripter = new HashidsNet.Hashids("qj328TtMDy", 3);
     }
 

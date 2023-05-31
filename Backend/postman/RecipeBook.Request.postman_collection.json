@@ -296,6 +296,17 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var timeRandom = _.random(1, 1000);\r",
+							"\r",
+							"postman.setGlobalVariable(\"TIME\", timeRandom);"
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -313,7 +324,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"{{$randomNoun}}\",\r\n  \"category\": 2,\r\n  \"instructions\": \"{{$randomLoremParagraph}}\",\r\n  \"ingredients\": [\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    }\r\n  ]\r\n}",
+					"raw": "{\r\n  \"title\": \"{{$randomNoun}}\",\r\n  \"category\": 2,\r\n  \"instructions\": \"{{$randomLoremParagraph}}\",\r\n  \"preparationTime\": \"{{TIME}}\",\r\n  \"ingredients\": [\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -349,7 +360,7 @@
 							"    let jsonData = pm.response.json();\r",
 							"\r",
 							"    pm.expect(jsonData.recipes).to.be.an(\"array\");\r",
-							"    pm.expect(jsonData.recipes[0]).to.have.keys(\"id\", \"title\", \"quantityIngredients\");\r",
+							"    pm.expect(jsonData.recipes[0]).to.have.keys(\"id\", \"title\", \"quantityIngredients\", \"preparationTime\");\r",
 							"\r",
 							"    pm.environment.set(\"ID_RECIPE\", jsonData.recipes[0].id);\r",
 							"})"
@@ -456,6 +467,17 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var timeRandom = _.random(1, 1000);\r",
+							"\r",
+							"postman.setGlobalVariable(\"TIME\", timeRandom);"
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -473,7 +495,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"title\": \"{{$randomNoun}}\",\r\n  \"category\": 2,\r\n  \"instructions\": \"{{$randomLoremParagraph}}\",\r\n  \"ingredients\": [\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    },\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    },\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    },\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    }\r\n  ]\r\n}",
+					"raw": "{\r\n  \"title\": \"{{$randomNoun}}\",\r\n  \"category\": 2,\r\n  \"instructions\": \"{{$randomLoremParagraph}}\",\r\n  \"preparationTime\": \"{{TIME}}\",\r\n  \"ingredients\": [\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    },\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    },\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    },\r\n    {\r\n      \"name\": \"{{$randomProduct}}\",\r\n      \"measurement\": \"{{$randomProductMaterial}}\"\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

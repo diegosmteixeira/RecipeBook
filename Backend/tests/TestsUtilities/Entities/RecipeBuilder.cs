@@ -11,6 +11,7 @@ public class RecipeBuilder
             .RuleFor(r => r.Title, f => f.Commerce.Department())
             .RuleFor(r => r.Category, f => f.PickRandom<RecipeBook.Domain.Enum.Category>())
             .RuleFor(r => r.Instructions, f => f.Commerce.ProductDescription())
+            .RuleFor(r => r.PreparationTime, f => f.Random.Int(1, 1000))
             .RuleFor(r => r.Ingredients, f => RandomIngredients(f, user.Id))
             .RuleFor(r => r.UserId, _ => user.Id);
     }
