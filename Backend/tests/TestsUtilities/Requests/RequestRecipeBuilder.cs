@@ -11,6 +11,7 @@ public class RequestRecipeBuilder
             .RuleFor(r => r.Title, f => f.Lorem.Word())
             .RuleFor(r => r.Category, f => f.PickRandom<Category>())
             .RuleFor(r => r.Instructions, f => f.Lorem.Paragraph())
+            .RuleFor(r => r.PreparationTime, f => f.Random.Int(1, 1000))
             .RuleFor(r => r.Ingredients, f => Ingredients(f));
     }
 

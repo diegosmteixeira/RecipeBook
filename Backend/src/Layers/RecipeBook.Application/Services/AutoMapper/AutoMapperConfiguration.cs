@@ -40,5 +40,7 @@ public class AutoMapperConfiguration : Profile
                 config.MapFrom(origin => _hashids.EncodeLong(origin.Id)))
             .ForMember(destinationMember => destinationMember.QuantityIngredients, 
                 config => config.MapFrom(origin => origin.Ingredients.Count));
+
+        CreateMap<Domain.Entities.User, Communication.Response.ResponseUserProfileJson>();
     }
 }

@@ -10,6 +10,7 @@ using RecipeBook.Application.UseCases.Recipe.Register;
 using RecipeBook.Application.UseCases.Recipe.Update;
 using RecipeBook.Application.UseCases.User.ChangePassword;
 using RecipeBook.Application.UseCases.User.Login;
+using RecipeBook.Application.UseCases.User.Profile;
 using RecipeBook.Application.UseCases.User.Register;
 
 namespace RecipeBook.Application;
@@ -64,6 +65,7 @@ public static class Bootstraper
                 .AddScoped<IDashboardUseCase, DashboardUseCase>()
                 .AddScoped<IRecipeRecoveryByIdUseCase, RecipeRecoveryByIdUseCase>()
                 .AddScoped<IRecipeUpdateUseCase, RecipeUpdateUseCase>()
-                .AddScoped<IRecipeDeleteUseCase, RecipeDeleteUseCase>();
+                .AddScoped<IRecipeDeleteUseCase, RecipeDeleteUseCase>()
+                .AddScoped<IProfileUseCase, ProfileUseCase>();
     }
 }
