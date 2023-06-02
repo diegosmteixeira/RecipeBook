@@ -89,7 +89,7 @@ DatabaseUpdate();
 
 app.UseMiddleware<CultureMiddleware>();
 
-app.MapHub<Connection>("/connection");
+app.MapHub<Socket>("/connect");
 
 app.Run();
 
