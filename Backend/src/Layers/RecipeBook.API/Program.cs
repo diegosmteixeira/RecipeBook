@@ -1,7 +1,10 @@
 using HashidsNet;
+using Microsoft.AspNetCore.Authorization;
 using RecipeBook.API.Filters;
+using RecipeBook.API.Filters.CustomAuthorize;
 using RecipeBook.API.Filters.Swagger;
 using RecipeBook.API.Middleware;
+using RecipeBook.API.WebSockets;
 using RecipeBook.Application;
 using RecipeBook.Application.Services.AutoMapper;
 using RecipeBook.Domain.Extension;
@@ -58,7 +61,14 @@ builder.Services.AddScoped(provider => new AutoMapper.MapperConfiguration(config
     config.AddProfile(new AutoMapperConfiguration(provider.GetService<IHashids>()));
 }).CreateMapper());
 
+builder.Services.AddScoped<IAuthorizationHandler, UserLoggedHandler>();
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("UserLogged", policy => policy.Requirements.Add(new UserLoggedRequirement()));
+});
 builder.Services.AddScoped<AuthorizationAttribute>();
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -78,6 +88,8 @@ app.MapControllers();
 DatabaseUpdate();
 
 app.UseMiddleware<CultureMiddleware>();
+
+app.MapHub<Connection>("/connection");
 
 app.Run();
 

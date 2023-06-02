@@ -8,7 +8,7 @@ using RecipeBook.Domain.Repositories.User;
 using RecipeBook.Exception;
 using RecipeBook.Exception.ExceptionsBase;
 
-namespace RecipeBook.API.Filters;
+namespace RecipeBook.API.Filters.CustomAuthorize;
 
 public class AuthorizationAttribute : AuthorizeAttribute, IAsyncAuthorizationFilter
 {
@@ -29,7 +29,7 @@ public class AuthorizationAttribute : AuthorizeAttribute, IAsyncAuthorizationFil
 
             var user = await _userReadOnlyRepository.UserRecoveryByEmail(email);
 
-            if (user is null) 
+            if (user is null)
             {
                 throw new RecipeBookException(string.Empty);
             }
@@ -48,20 +48,20 @@ public class AuthorizationAttribute : AuthorizeAttribute, IAsyncAuthorizationFil
     {
         var authorization = context.HttpContext.Request.Headers["Authorization"].ToString();
 
-        if (string.IsNullOrWhiteSpace(authorization) ) 
+        if (string.IsNullOrWhiteSpace(authorization))
         {
             throw new RecipeBookException(string.Empty);
         }
         return authorization["Bearer".Length..].Trim();
     }
 
-    private static void TokenExpired(AuthorizationFilterContext context) 
+    private static void TokenExpired(AuthorizationFilterContext context)
     {
         context.Result = new UnauthorizedObjectResult(new ErrorResponseJson(ResourceErrorMessages.TOKEN_EXPIRED));
     }
 
     private static void UserWithoutPermission(AuthorizationFilterContext context)
     {
-       context.Result = new UnauthorizedObjectResult(new ErrorResponseJson(ResourceErrorMessages.WITHOUT_PERMISSION));
+        context.Result = new UnauthorizedObjectResult(new ErrorResponseJson(ResourceErrorMessages.WITHOUT_PERMISSION));
     }
 }

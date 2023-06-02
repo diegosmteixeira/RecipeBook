@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RecipeBook.API.Filters;
+using RecipeBook.API.Filters.CustomAuthorize;
 using RecipeBook.Application.UseCases.Recipe.Delete;
 using RecipeBook.Application.UseCases.Recipe.Recover;
 using RecipeBook.Application.UseCases.Recipe.Register;
