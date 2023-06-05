@@ -1,5 +1,5 @@
 ﻿namespace RecipeBook.Application.UseCases.Connection.GenerateQRCode;
 public interface IGenerateQRCodeUseCase
 {
-    Task<string> Execute();
+    Task<(string qrCode, string idUser)> Execute();
 }

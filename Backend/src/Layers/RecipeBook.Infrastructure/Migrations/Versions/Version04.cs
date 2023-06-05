@@ -12,6 +12,11 @@ public class Version04 : Migration
 
     public override void Up()
     {
+        CreateTableCode();
+    }
+
+    private void CreateTableCode()
+    {
         var table = BaseVersion.InsertStandardColumns(Create.Table("Codes"));
 
         table

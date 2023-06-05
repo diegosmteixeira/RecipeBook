@@ -5,6 +5,7 @@
         CreateUserTable = 1,
         CreateRecipeTable = 2,
         UpdateRecipeTable = 3,
-        CreateUserLink = 4
+        CreateUserLink = 4,
+        CreateConnectionLink = 5
     }
 }

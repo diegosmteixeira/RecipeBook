@@ -42,5 +42,7 @@ public class AutoMapperConfiguration : Profile
                 config => config.MapFrom(origin => origin.Ingredients.Count));
 
         CreateMap<Domain.Entities.User, Communication.Response.ResponseUserProfileJson>();
+
+        CreateMap<Domain.Entities.User, Communication.Response.ResponseUserConnectionJson>();
     }
 }

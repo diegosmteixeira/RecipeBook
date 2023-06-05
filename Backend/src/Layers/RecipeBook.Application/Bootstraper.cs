@@ -4,6 +4,7 @@ using RecipeBook.Application.Services.Cryptography;
 using RecipeBook.Application.Services.LoggedUser;
 using RecipeBook.Application.Services.Token;
 using RecipeBook.Application.UseCases.Connection.GenerateQRCode;
+using RecipeBook.Application.UseCases.Connection.ReadQRCode;
 using RecipeBook.Application.UseCases.Dashboard;
 using RecipeBook.Application.UseCases.Recipe.Delete;
 using RecipeBook.Application.UseCases.Recipe.Recover;
@@ -68,6 +69,7 @@ public static class Bootstraper
                 .AddScoped<IRecipeUpdateUseCase, RecipeUpdateUseCase>()
                 .AddScoped<IRecipeDeleteUseCase, RecipeDeleteUseCase>()
                 .AddScoped<IProfileUseCase, ProfileUseCase>()
-                .AddScoped<IGenerateQRCodeUseCase, GenerateQRCodeUseCase>();
+                .AddScoped<IGenerateQRCodeUseCase, GenerateQRCodeUseCase>()
+                .AddScoped<IReadQRCodeUseCase, ReadQRCodeUseCase>();
     }
 }

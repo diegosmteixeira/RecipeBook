@@ -1,4 +1,5 @@
-﻿using RecipeBook.Application.Services.LoggedUser;
+﻿using HashidsNet;
+using RecipeBook.Application.Services.LoggedUser;
 using RecipeBook.Domain.Repositories;
 using RecipeBook.Domain.Repositories.Code;
 
@@ -8,18 +9,21 @@ public class GenerateQRCodeUseCase : IGenerateQRCodeUseCase
     private readonly ICodeWriteOnlyRepository _repository;
     private readonly IUserLogged _userLogged;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IHashids _hashids;
 
-    public GenerateQRCodeUseCase(ICodeWriteOnlyRepository repository, 
-                                 IUserLogged userLogged, 
-                                 IUnitOfWork unitOfWork)
+    public GenerateQRCodeUseCase(ICodeWriteOnlyRepository repository,
+                                 IUserLogged userLogged,
+                                 IUnitOfWork unitOfWork,
+                                 IHashids hashids)
     {
         _repository = repository;
         _userLogged = userLogged;
         _unitOfWork = unitOfWork;
+        _hashids = hashids;
     }
 
 
-    public async Task<string> Execute()
+    public async Task<(string qrCode, string idUser)> Execute()
     {
         var userLogged = await _userLogged.UserRecovery();
 
@@ -32,6 +36,6 @@ public class GenerateQRCodeUseCase : IGenerateQRCodeUseCase
         await _repository.Register(code);
         await _unitOfWork.Commit();
 
-        return code.CodeId;
+        return (code.CodeId, _hashids.EncodeLong(userLogged.Id));
     }
 }

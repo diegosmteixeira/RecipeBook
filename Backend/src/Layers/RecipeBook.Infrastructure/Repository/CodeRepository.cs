@@ -12,6 +12,11 @@ public class CodeRepository : ICodeWriteOnlyRepository, ICodeReadOnlyRepository
         _context = context;
     }
 
+    public async Task<Code> RecoverEntityCode(string code)
+    {
+        return await _context.Codes.AsNoTracking().FirstOrDefaultAsync(c => c.CodeId == code);
+    }
+
     public async Task Register(Code code)
     {
         var codeDB = await _context.Codes.FirstOrDefaultAsync(c => c.UserId == code.UserId);
