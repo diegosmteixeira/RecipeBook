@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using RecipeBook.Application.UseCases.Connection.GenerateQRCode;
 using RecipeBook.Application.UseCases.Connection.ReadQRCode;
+using RecipeBook.Application.UseCases.Connection.RefuseConnection;
 using RecipeBook.Communication.Response;
 using RecipeBook.Exception;
 using RecipeBook.Exception.ExceptionsBase;
@@ -14,12 +15,15 @@ public class Socket : Hub
     private readonly Broadcaster _broadcaster;
     private readonly IGenerateQRCodeUseCase _generateQRCode;
     private readonly IReadQRCodeUseCase _readQRCode;
+    private readonly IRefuseConnectionUseCase _refuseConnection;
     private readonly IHubContext<Socket> _hubContext;
 
-    public Socket(IGenerateQRCodeUseCase generateQRCode, 
-                  IHubContext<Socket> hubContext, 
+    public Socket(IRefuseConnectionUseCase refuseConnection,
+                  IGenerateQRCodeUseCase generateQRCode,
+                  IHubContext<Socket> hubContext,
                   IReadQRCodeUseCase readQRCode)
     {
+        _refuseConnection = refuseConnection;
         _broadcaster = Broadcaster.Instance;
         _generateQRCode = generateQRCode;
         _hubContext = hubContext;
@@ -43,7 +47,10 @@ public class Socket : Hub
 
             var connectionId = _broadcaster.GetUserConnectionId(idUserWhichGenerateQRCode);
 
-            await Clients.Client("").SendAsync("ResultReadQRCode", userToConnect);
+            _broadcaster.ResetExpirationTime(connectionId);
+            _broadcaster.SetConnectionIdUserQRCodeReader(idUserWhichGenerateQRCode, Context.ConnectionId);
+
+            await Clients.Client(connectionId).SendAsync("ResultReadQRCode", userToConnect);
 
         }
         catch (RecipeBookException ex)
@@ -54,6 +61,17 @@ public class Socket : Hub
         {
             await Clients.Caller.SendAsync("Error", ResourceErrorMessages.UNKNOWN_ERROR);
         }
+    }
+
+    public async Task RefuseConnection()
+    {
+        var generatorConnectionId = Context.ConnectionId;
+
+        var userId = await _refuseConnection.Execute();
+
+        var connectionIdUserQRCodeReader = _broadcaster.Remove(generatorConnectionId, userId);
+
+        await Clients.Client(connectionIdUserQRCodeReader).SendAsync("OnConnectionRefused");
 
     }
 }

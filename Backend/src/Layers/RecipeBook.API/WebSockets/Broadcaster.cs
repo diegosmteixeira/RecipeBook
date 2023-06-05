@@ -42,4 +42,38 @@ public class Broadcaster
 
         return connectionId.ToString();
     }
+
+    public void ResetExpirationTime(string connectionId)
+    {
+        _dictionary.TryGetValue(connectionId, out var objectConnection);
+
+        var connection = objectConnection as Connection;
+
+        connection.TimerReset();
+    }
+
+    public void SetConnectionIdUserQRCodeReader(string idUserWhichGenerateQRCode, string connectionIdUserQRCodeReader)
+    {
+        var connectionId = GetUserConnectionId(idUserWhichGenerateQRCode);
+
+        _dictionary.TryGetValue(connectionId, out var objectConnection);
+
+        var connection = objectConnection as Connection;
+
+        connection.SetConnectionIdUserQRCodeReader(connectionIdUserQRCodeReader);
+    }
+
+    public string Remove(string connectionId, string userId)
+    {
+        _dictionary.TryGetValue(connectionId, out var objectConnection);
+
+        var connection = objectConnection as Connection;
+
+        connection.StopTimer();
+
+        _dictionary.TryRemove(connectionId, out _);
+        _dictionary.TryRemove(userId, out _);
+
+        return connection.UserQRCodeReader();
+    }
 }
