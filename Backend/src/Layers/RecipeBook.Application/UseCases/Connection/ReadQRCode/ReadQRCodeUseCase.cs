@@ -35,6 +35,7 @@ public class ReadQRCodeUseCase : IReadQRCodeUseCase
 
         var userToConnect = new ResponseUserConnectionJson
         {
+            Id = _hashids.EncodeLong(userLogged.Id),
             Name = userLogged.Name
         };
 

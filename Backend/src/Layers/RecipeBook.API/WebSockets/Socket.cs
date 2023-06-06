@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using RecipeBook.Application.UseCases.Connection.AcceptConection;
 using RecipeBook.Application.UseCases.Connection.GenerateQRCode;
 using RecipeBook.Application.UseCases.Connection.ReadQRCode;
 using RecipeBook.Application.UseCases.Connection.RefuseConnection;
-using RecipeBook.Communication.Response;
+using RecipeBook.Domain.Entities;
 using RecipeBook.Exception;
 using RecipeBook.Exception.ExceptionsBase;
 
@@ -16,14 +17,17 @@ public class Socket : Hub
     private readonly IGenerateQRCodeUseCase _generateQRCode;
     private readonly IReadQRCodeUseCase _readQRCode;
     private readonly IRefuseConnectionUseCase _refuseConnection;
+    private readonly IAcceptConnectionUseCase _acceptConnection;
     private readonly IHubContext<Socket> _hubContext;
 
     public Socket(IRefuseConnectionUseCase refuseConnection,
+                  IAcceptConnectionUseCase acceptConnection,
                   IGenerateQRCodeUseCase generateQRCode,
                   IHubContext<Socket> hubContext,
                   IReadQRCodeUseCase readQRCode)
     {
         _refuseConnection = refuseConnection;
+        _acceptConnection = acceptConnection;
         _broadcaster = Broadcaster.Instance;
         _generateQRCode = generateQRCode;
         _hubContext = hubContext;
@@ -32,11 +36,23 @@ public class Socket : Hub
 
     public async Task GetQRCode()
     {
-        (var qrCode, var idUser ) = await _generateQRCode.Execute();
+        try
+        {
+            (var qrCode, var idUser) = await _generateQRCode.Execute();
 
-        _broadcaster.InitializeConnection(_hubContext, idUser, Context.ConnectionId);
+            _broadcaster.InitializeConnection(_hubContext, idUser, Context.ConnectionId);
 
-        await Clients.Caller.SendAsync("QR Code", qrCode);
+            await Clients.Caller.SendAsync("QR Code", qrCode);
+
+        }
+        catch (RecipeBookException ex)
+        {
+            await Clients.Caller.SendAsync("Error", ex.Message);
+        }
+        catch
+        {
+            await Clients.Caller.SendAsync("Error", ResourceErrorMessages.UNKNOWN_ERROR);
+        }
     }
 
     public async Task ReadQRCode(string connectionCode)
@@ -65,13 +81,45 @@ public class Socket : Hub
 
     public async Task RefuseConnection()
     {
-        var generatorConnectionId = Context.ConnectionId;
+        try
+        {
+            var generatorConnectionId = Context.ConnectionId;
 
-        var userId = await _refuseConnection.Execute();
+            var userId = await _refuseConnection.Execute();
 
-        var connectionIdUserQRCodeReader = _broadcaster.Remove(generatorConnectionId, userId);
+            var connectionIdUserQRCodeReader = _broadcaster.Remove(generatorConnectionId, userId);
 
-        await Clients.Client(connectionIdUserQRCodeReader).SendAsync("OnConnectionRefused");
+            await Clients.Client(connectionIdUserQRCodeReader).SendAsync("OnConnectionRefused");
+        }
+        catch (RecipeBookException ex)
+        {
+            await Clients.Caller.SendAsync("Error", ex.Message);
+        }
+        catch
+        {
+            await Clients.Caller.SendAsync("Error", ResourceErrorMessages.UNKNOWN_ERROR);
+        }
+    }
 
+    public async Task AcceptConnection(string connectedWithUserId)
+    {
+        try
+        {
+            var userId = await _acceptConnection.Execute(connectedWithUserId);
+
+            var generatorConnectionId = Context.ConnectionId;
+
+            var connectionIdUserQRCodeReader = _broadcaster.Remove(generatorConnectionId, userId);
+
+            await Clients.Client(connectionIdUserQRCodeReader).SendAsync("OnConnectionAccepted");
+        }
+        catch (RecipeBookException ex)
+        {
+            await Clients.Caller.SendAsync("Error", ex.Message);
+        }
+        catch
+        {
+            await Clients.Caller.SendAsync("Error", ResourceErrorMessages.UNKNOWN_ERROR);
+        }
     }
 }

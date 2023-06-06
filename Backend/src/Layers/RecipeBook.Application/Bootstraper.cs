@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RecipeBook.Application.Services.Cryptography;
 using RecipeBook.Application.Services.LoggedUser;
 using RecipeBook.Application.Services.Token;
+using RecipeBook.Application.UseCases.Connection.AcceptConection;
 using RecipeBook.Application.UseCases.Connection.GenerateQRCode;
 using RecipeBook.Application.UseCases.Connection.ReadQRCode;
 using RecipeBook.Application.UseCases.Connection.RefuseConnection;
@@ -72,6 +73,7 @@ public static class Bootstraper
                 .AddScoped<IProfileUseCase, ProfileUseCase>()
                 .AddScoped<IGenerateQRCodeUseCase, GenerateQRCodeUseCase>()
                 .AddScoped<IReadQRCodeUseCase, ReadQRCodeUseCase>()
-                .AddScoped<IRefuseConnectionUseCase, RefuseConnectionUseCase>();
+                .AddScoped<IRefuseConnectionUseCase, RefuseConnectionUseCase>()
+                .AddScoped<IAcceptConnectionUseCase, AcceptConnectionUseCase>();
     }
 }
