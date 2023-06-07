@@ -3,6 +3,7 @@ using RecipeBook.Application.Services.LoggedUser;
 using RecipeBook.Communication.Response;
 using RecipeBook.Domain.Repositories.Code;
 using RecipeBook.Domain.Repositories.Connection;
+using RecipeBook.Exception;
 using RecipeBook.Exception.ExceptionsBase;
 
 namespace RecipeBook.Application.UseCases.Connection.ReadQRCode;
@@ -47,11 +48,11 @@ public class ReadQRCodeUseCase : IReadQRCodeUseCase
     {
         if (code is null)
         {
-            throw new RecipeBookException("");
+            throw new RecipeBookException(ResourceErrorMessages.CODE_NOT_FOUND);
         }
         if (code.UserId == userLogged.Id)
         {
-            throw new RecipeBookException("");
+            throw new RecipeBookException(ResourceErrorMessages.OPT_DENIED);
         }
 
         var connectionExists = await _connectionRepository
@@ -59,7 +60,7 @@ public class ReadQRCodeUseCase : IReadQRCodeUseCase
 
         if (connectionExists)
         {
-            throw new RecipeBookException("");
+            throw new RecipeBookException(ResourceErrorMessages.CONN_EXISTS);
         }
     }
 }

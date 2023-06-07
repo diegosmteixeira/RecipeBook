@@ -61,6 +61,24 @@ namespace RecipeBook.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Code was not found..
+        /// </summary>
+        public static string CODE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("CODE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The connection already exists..
+        /// </summary>
+        public static string CONN_EXISTS {
+            get {
+                return ResourceManager.GetString("CONN_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The user&apos;s email has already been taken..
         /// </summary>
         public static string EMAIL_EXISTS {
@@ -192,6 +210,15 @@ namespace RecipeBook.Exception {
         public static string INVALID_PHONE {
             get {
                 return ResourceManager.GetString("INVALID_PHONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a You can not execute this operation. Check if the code is valid..
+        /// </summary>
+        public static string OPT_DENIED {
+            get {
+                return ResourceManager.GetString("OPT_DENIED", resourceCulture);
             }
         }
         
