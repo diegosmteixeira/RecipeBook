@@ -4,7 +4,6 @@ using RecipeBook.Application.UseCases.Connection.AcceptConection;
 using RecipeBook.Application.UseCases.Connection.GenerateQRCode;
 using RecipeBook.Application.UseCases.Connection.ReadQRCode;
 using RecipeBook.Application.UseCases.Connection.RefuseConnection;
-using RecipeBook.Domain.Entities;
 using RecipeBook.Exception;
 using RecipeBook.Exception.ExceptionsBase;
 

@@ -1,5 +1,6 @@
 ﻿using Moq;
 using RecipeBook.API.WebSockets;
+using RecipeBook.Application.UseCases.Connection.AcceptConection;
 using RecipeBook.Application.UseCases.Connection.GenerateQRCode;
 using RecipeBook.Application.UseCases.Connection.RefuseConnection;
 using RecipeBook.Exception;
@@ -8,7 +9,7 @@ using WebApi.Test.V1.Connection.Builder;
 using Xunit;
 
 namespace WebApi.Test.V1.Connection;
-public class RefuseConnectionTest
+public class AcceptConnectionTest
 {
     [Fact]
     public async Task Validate_Success()
@@ -22,18 +23,18 @@ public class RefuseConnectionTest
         var userToConnect = ResponseUserConnectionJsonBuilder.Build();
 
         var useCaseGenerateQRCoder = GenerateQRCodeBuilder(connectionCode);
-        var useCaseRefuseConnection = RefuseConnectionBuilder();
+        var useCaseAcceptConnection = AcceptConnectionBuilder(userToConnect.Id);
 
-        var hub = new Socket(useCaseRefuseConnection, null, useCaseGenerateQRCoder, mockHubContext.Object, null)
+        var hub = new Socket(null, useCaseAcceptConnection, useCaseGenerateQRCoder, mockHubContext.Object, null)
         {
             Context = mockHubCallerContext.Object,
             Clients = mockClients.Object
         };
 
         await hub.GetQRCode();
-        await hub.RefuseConnection();
+        await hub.AcceptConnection(userToConnect.Id);
 
-        mockClientProxy.Verify(c => c.SendCoreAsync("OnConnectionRefused", 
+        mockClientProxy.Verify(c => c.SendCoreAsync("OnConnectionAccepted",
             It.Is<object[]>(response => response != null && response.Length == 0), default), Times.Once);
     }
 
@@ -49,16 +50,15 @@ public class RefuseConnectionTest
         var userToConnect = ResponseUserConnectionJsonBuilder.Build();
 
         var useCaseGenerateQRCoder = GenerateQRCodeBuilder(connectionCode);
-        var useCaseRefuseConnection = RefuseConnectionBuilder_UnkownError();
+        var useCaseAcceptConnection = AcceptConnectionBuilder_UnkownError(userToConnect.Id);
 
-        var hub = new Socket(useCaseRefuseConnection, null, useCaseGenerateQRCoder, mockHubContext.Object, null)
+        var hub = new Socket(null, useCaseAcceptConnection, useCaseGenerateQRCoder, mockHubContext.Object, null)
         {
             Context = mockHubCallerContext.Object,
             Clients = mockClients.Object
         };
 
-        await hub.GetQRCode();
-        await hub.RefuseConnection();
+        await hub.AcceptConnection(userToConnect.Id);
 
         mockClientProxy.Verify(
                     c => c.SendCoreAsync("Error",
@@ -70,29 +70,28 @@ public class RefuseConnectionTest
     public async Task Validate_RecipeBook_Exception_Failure()
     {
         (var mockHubContext,
-          var mockClientProxy,
-          var mockClients,
-          var mockHubCallerContext) = MockWebSocketConnectionsBuilder.Build();
+         var mockClientProxy,
+         var mockClients,
+         var mockHubCallerContext) = MockWebSocketConnectionsBuilder.Build();
 
         var connectionCode = Guid.NewGuid().ToString();
         var userToConnect = ResponseUserConnectionJsonBuilder.Build();
 
         var useCaseGenerateQRCoder = GenerateQRCodeBuilder(connectionCode);
-        var useCaseRefuseConnection = RefuseConnectionBuilder();
+        var useCaseAcceptConnection = AcceptConnectionBuilder(userToConnect.Id);
 
-        var hub = new Socket(useCaseRefuseConnection, null, useCaseGenerateQRCoder, mockHubContext.Object, null)
+        var hub = new Socket(null, useCaseAcceptConnection, useCaseGenerateQRCoder, mockHubContext.Object, null)
         {
             Context = mockHubCallerContext.Object,
             Clients = mockClients.Object
         };
 
-        await hub.RefuseConnection();
+        await hub.AcceptConnection(userToConnect.Id);
 
         mockClientProxy.Verify(c => c.SendCoreAsync("Error",
                     It.Is<object[]>(response => response != null && response.Length == 1
                     && response.First().Equals(ResourceErrorMessages.USER_NOT_FOUND)), default), Times.Once);
     }
-
 
     private static IGenerateQRCodeUseCase GenerateQRCodeBuilder(string qrCode)
     {
@@ -103,20 +102,20 @@ public class RefuseConnectionTest
         return useCaseMock.Object;
     }
 
-    private static IRefuseConnectionUseCase RefuseConnectionBuilder()
+    private static IAcceptConnectionUseCase AcceptConnectionBuilder(string connectedWithUserId)
     {
-        var useCaseMock = new Mock<IRefuseConnectionUseCase>();
+        var useCaseMock = new Mock<IAcceptConnectionUseCase>();
 
-        useCaseMock.Setup(u => u.Execute()).ReturnsAsync(("userId"));
+        useCaseMock.Setup(u => u.Execute(connectedWithUserId)).ReturnsAsync(("userId"));
 
         return useCaseMock.Object;
     }
 
-    private static IRefuseConnectionUseCase RefuseConnectionBuilder_UnkownError()
+    private static IAcceptConnectionUseCase AcceptConnectionBuilder_UnkownError(string connectedWithUserId)
     {
-        var useCaseMock = new Mock<IRefuseConnectionUseCase>();
+        var useCaseMock = new Mock<IAcceptConnectionUseCase>();
 
-        useCaseMock.Setup(u => u.Execute()).ThrowsAsync(new ArgumentNullException());
+        useCaseMock.Setup(u => u.Execute(connectedWithUserId)).ThrowsAsync(new ArgumentNullException());
 
         return useCaseMock.Object;
     }
