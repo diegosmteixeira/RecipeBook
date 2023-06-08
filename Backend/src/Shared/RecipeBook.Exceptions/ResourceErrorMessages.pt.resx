@@ -186,6 +186,9 @@
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>
   </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>Usuário não encontrado.</value>
+  </data>
   <data name="WITHOUT_PERMISSION" xml:space="preserve">
     <value>Usuário sem permissão para acessar esse recurso.</value>
   </data>

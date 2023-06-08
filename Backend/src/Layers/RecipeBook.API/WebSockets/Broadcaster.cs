@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using RecipeBook.Exception;
 using RecipeBook.Exception.ExceptionsBase;
 using System.Collections.Concurrent;
 
@@ -37,7 +38,7 @@ public class Broadcaster
     {
         if (!_dictionary.TryGetValue(userId, out var connectionId)) 
         {
-            throw new RecipeBookException("");
+            throw new RecipeBookException(ResourceErrorMessages.USER_NOT_FOUND);
         }
 
         return connectionId.ToString();

@@ -15,6 +15,7 @@ public class MockWebSocketConnectionsBuilder
 
         var mockClients = new Mock<IHubCallerClients>();
         mockClients.Setup(c => c.Caller).Returns(mockClientProxy.Object);
+        mockClients.Setup(c => c.Client(It.IsAny<string>())).Returns(mockClientProxy.Object);
 
         var mockHubCallerContext = new Mock<HubCallerContext>();
         mockHubCallerContext.Setup(c => c.ConnectionId).Returns(Guid.NewGuid().ToString());
