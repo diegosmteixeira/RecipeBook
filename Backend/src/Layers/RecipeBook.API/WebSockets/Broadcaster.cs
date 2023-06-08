@@ -66,7 +66,10 @@ public class Broadcaster
 
     public string Remove(string connectionId, string userId)
     {
-        _dictionary.TryGetValue(connectionId, out var objectConnection);
+        if (!_dictionary.TryGetValue(connectionId, out var objectConnection))
+        {
+            throw new RecipeBookException(ResourceErrorMessages.USER_NOT_FOUND);
+        }
 
         var connection = objectConnection as Connection;
 
