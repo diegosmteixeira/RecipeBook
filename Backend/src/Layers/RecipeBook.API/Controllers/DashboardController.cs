@@ -17,7 +17,7 @@ public class DashboardController : RecipeBookController
                                                        [FromBody] RequestDashboardJson request)
     {
         var response = await useCase.Execute(request);
-
+        
         if (response.Recipes.Any())
             return Ok(response);
 

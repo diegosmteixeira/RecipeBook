@@ -48,4 +48,9 @@ public class RecipeRepository : IRecipeWriteOnlyRepository, IRecipeReadOnlyRepos
 
         _context.Recipes.Remove(recipe);
     }
+
+    public async Task<int> RecipeRecoveryCount(long userId)
+    {
+        return await _context.Recipes.CountAsync(r => r.UserId == userId);
+    }
 }

@@ -44,5 +44,9 @@ public class AutoMapperConfiguration : Profile
         CreateMap<Domain.Entities.User, Communication.Response.ResponseUserProfileJson>();
 
         CreateMap<Domain.Entities.User, Communication.Response.ResponseUserConnectionJson>();
+
+        CreateMap<Domain.Entities.User, Communication.Response.ResponseUserConnectedWithJson>()
+            .ForMember(destinationMember => destinationMember.Id, config =>
+                config.MapFrom(origin => _hashids.EncodeLong(origin.Id)));
     }
 }

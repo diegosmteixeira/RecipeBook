@@ -6,6 +6,7 @@ using RecipeBook.Application.Services.Token;
 using RecipeBook.Application.UseCases.Connection.AcceptConection;
 using RecipeBook.Application.UseCases.Connection.GenerateQRCode;
 using RecipeBook.Application.UseCases.Connection.ReadQRCode;
+using RecipeBook.Application.UseCases.Connection.RecoverConnection;
 using RecipeBook.Application.UseCases.Connection.RefuseConnection;
 using RecipeBook.Application.UseCases.Dashboard;
 using RecipeBook.Application.UseCases.Recipe.Delete;
@@ -74,6 +75,7 @@ public static class Bootstraper
                 .AddScoped<IGenerateQRCodeUseCase, GenerateQRCodeUseCase>()
                 .AddScoped<IReadQRCodeUseCase, ReadQRCodeUseCase>()
                 .AddScoped<IRefuseConnectionUseCase, RefuseConnectionUseCase>()
-                .AddScoped<IAcceptConnectionUseCase, AcceptConnectionUseCase>();
+                .AddScoped<IAcceptConnectionUseCase, AcceptConnectionUseCase>()
+                .AddScoped<IRecoverConnectionUseCase, RecoverConnectionUseCase>();
     }
 }

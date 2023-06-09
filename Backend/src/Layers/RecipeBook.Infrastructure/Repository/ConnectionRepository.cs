@@ -20,6 +20,15 @@ public class ConnectionRepository : IConnectionWriteOnlyRepository, IConnectionR
             .AnyAsync(c => c.UserId == userId && c.ConnectedWithUserId == otherUserId);
     }
 
+    public async Task<IList<User>> RecoverConnections(long userId)
+    {
+        return await _recipeBookContext.Connections.AsNoTracking()
+            .Include(c => c.ConnectedWithUser)
+            .Where(c => c.UserId == userId)
+            .Select(c => c.ConnectedWithUser)
+            .ToListAsync();
+    }
+
     public async Task Register(Connection connection)
     {
         await _recipeBookContext.Connections.AddAsync(connection);
