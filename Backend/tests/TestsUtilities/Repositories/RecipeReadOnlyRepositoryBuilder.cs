@@ -40,4 +40,10 @@ public class RecipeReadOnlyRepositoryBuilder
         _repository.Setup(repo => repo.RecipeRecoveryById(recipe.Id)).ReturnsAsync(recipe);
         return this;
     }
+    
+    public RecipeReadOnlyRepositoryBuilder RecipeRecoveryCount(int quantity)
+    {
+        _repository.Setup(repo => repo.RecipeRecoveryCount(It.IsAny<long>())).ReturnsAsync(quantity);
+        return this;
+    }
 }

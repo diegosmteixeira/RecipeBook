@@ -29,6 +29,13 @@ public class ConnectionReadOnlyRepositoryBuilder
 
         return this;
     }
+    
+    public ConnectionReadOnlyRepositoryBuilder RecoverConnections(User user, IList<User> connections)
+    {
+        _repository.Setup(x => x.RecoverConnections(user.Id)).ReturnsAsync(connections);
+
+        return this;
+    }
 
     public IConnectionReadOnlyRepository Build()
     {
