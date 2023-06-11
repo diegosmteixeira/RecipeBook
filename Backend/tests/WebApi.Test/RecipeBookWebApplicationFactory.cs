@@ -10,6 +10,12 @@ public class RecipeBookWebApplicationFactory<TStartup> : WebApplicationFactory<T
 {
     private RecipeBook.Domain.Entities.User _user;
     private string _password;
+    
+    private RecipeBook.Domain.Entities.User _userWithoutRecipe;
+    private string _passwordWithoutRecipe;
+    
+    private RecipeBook.Domain.Entities.User _userWithConnection;
+    private string _passwordWithConnection;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -39,6 +45,8 @@ public class RecipeBookWebApplicationFactory<TStartup> : WebApplicationFactory<T
                 database.Database.EnsureDeleted();
 
                 (_user, _password) = ContextSeedInMemory.Seed(database);
+                (_userWithoutRecipe, _passwordWithoutRecipe) = ContextSeedInMemory.SeedUserWithoutAnyRecipe(database);
+                (_userWithConnection, _passwordWithConnection) = ContextSeedInMemory.SeedUserWithConnection(database);
             });
     }
 
@@ -50,5 +58,25 @@ public class RecipeBookWebApplicationFactory<TStartup> : WebApplicationFactory<T
     public string PasswordRecovery()
     {
         return _password;
+    }
+
+    public RecipeBook.Domain.Entities.User UserRecoveryWithoutRecipe()
+    {
+        return _userWithoutRecipe;
+    }
+
+    public string PasswordRecoveryWithoutRecipe()
+    {
+        return _passwordWithoutRecipe;
+    }
+
+    public RecipeBook.Domain.Entities.User UserRecoveryWithConnection()
+    {
+        return _userWithConnection;
+    }
+
+    public string PasswordRecoveryWithConnection()
+    {
+        return _passwordWithConnection;
     }
 }

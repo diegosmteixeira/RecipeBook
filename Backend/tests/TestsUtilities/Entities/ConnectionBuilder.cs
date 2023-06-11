@@ -8,7 +8,7 @@ public class ConnectionBuilder
     public static List<User> Build()
     {
         var userConnection = CreateUser();
-        userConnection.Id = 2;
+        userConnection.Id = 4;
 
         return new List<User>() { userConnection };
     }

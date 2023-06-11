@@ -9,14 +9,14 @@ namespace RecipeBook.API.Controllers;
 public class ConnectionsController : RecipeBookController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(IList<ResponseUserConnectedWithJson>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseUserConnectedListJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ServiceFilter(typeof(AuthorizationAttribute))]
     public async Task<IActionResult> RecoverConnections([FromServices] IRecoverConnectionUseCase useCase)
     {
         var response = await useCase.Execute();
 
-        if (response.Any())
+        if (response.Users.Any())
             return Ok(response);
 
         return NoContent();

@@ -21,7 +21,7 @@ public class RecoverConnectionUseCase : IRecoverConnectionUseCase
         _readRepository = readRepository;
         _mapper = mapper;
     }
-    public async Task<IList<ResponseUserConnectedWithJson>> Execute()
+    public async Task<ResponseUserConnectedListJson> Execute()
     {
         var userLogged = await _userLogged.UserRecovery();
 
@@ -37,6 +37,9 @@ public class RecoverConnectionUseCase : IRecoverConnectionUseCase
             return userJson;
         });
 
-        return await Task.WhenAll(tasks);
+        return new ResponseUserConnectedListJson
+        {
+            Users = await Task.WhenAll(tasks)
+        };
     }
 }

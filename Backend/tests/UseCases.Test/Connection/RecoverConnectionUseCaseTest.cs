@@ -24,9 +24,10 @@ public class RecoverConnectionUseCaseTest
 
         var result = await useCase.Execute();
 
-        result.Should().NotBeEmpty();
-        result.Should().HaveCount(connections.Count);
-        result.Should().SatisfyRespectively
+        result.Should().NotBeNull();
+        result.Users.Should().NotBeEmpty();
+        result.Users.Should().HaveCount(connections.Count);
+        result.Users.Should().SatisfyRespectively
         (
             firstElement =>
             {

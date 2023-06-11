@@ -29,6 +29,14 @@ public class UserBuilder
     public static (User user, string password) BuildUser2()
     {
         (var user, var password) = Build();
+        user.Id = 2;
+
+        return (user, password);
+    }
+
+    public static (User user, string password) BuildUserWithConnection()
+    {
+        (var user, var password) = Build();
         user.Id = 3;
 
         return (user, password);

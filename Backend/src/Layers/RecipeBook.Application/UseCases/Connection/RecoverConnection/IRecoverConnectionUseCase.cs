@@ -3,5 +3,5 @@
 namespace RecipeBook.Application.UseCases.Connection.RecoverConnection;
 public interface IRecoverConnectionUseCase
 {
-    Task<IList<ResponseUserConnectedWithJson>> Execute();
+    Task<ResponseUserConnectedListJson> Execute();
 }
