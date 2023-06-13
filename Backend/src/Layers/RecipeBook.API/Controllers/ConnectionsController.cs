@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RecipeBook.API.Binder;
-using RecipeBook.API.Filters.CustomAuthorize;
 using RecipeBook.Application.UseCases.Connection.RecoverConnection;
 using RecipeBook.Application.UseCases.Connection.RemoveConnection;
 using RecipeBook.Communication.Response;

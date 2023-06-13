@@ -1,5 +1,7 @@
 using HashidsNet;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using RecipeBook.API.Filters;
 using RecipeBook.API.Filters.CustomAuthorize;
 using RecipeBook.API.Filters.Swagger;
@@ -11,7 +13,6 @@ using RecipeBook.Domain.Extension;
 using RecipeBook.Infrastructure;
 using RecipeBook.Infrastructure.Migrations;
 using RecipeBook.Infrastructure.Repository.RepositoryAccess;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,7 +71,19 @@ builder.Services.AddScoped<AuthorizationAttribute>();
 
 builder.Services.AddSignalR();
 
+builder.Services.AddHealthChecks().AddDbContextCheck<RecipeBookContext>();
+
 var app = builder.Build();
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    }
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
