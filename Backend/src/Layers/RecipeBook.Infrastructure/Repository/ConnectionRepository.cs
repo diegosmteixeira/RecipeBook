@@ -33,4 +33,14 @@ public class ConnectionRepository : IConnectionWriteOnlyRepository, IConnectionR
     {
         await _recipeBookContext.Connections.AddAsync(connection);
     }
+
+    public async Task RemoveConnection(long userId, long userIdToRemove)
+    {
+        var connections = await _recipeBookContext.Connections
+            .Where(c => (c.UserId == userId && c.ConnectedWithUserId == userIdToRemove) 
+                     || (c.UserId == userIdToRemove && c.ConnectedWithUserId == userId))
+            .ToListAsync();
+
+        _recipeBookContext.RemoveRange(connections);
+    }
 }

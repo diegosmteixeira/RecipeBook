@@ -2,4 +2,5 @@
 public interface IConnectionWriteOnlyRepository
 {
     Task Register(Entities.Connection connection);
+    Task RemoveConnection(long userId, long userIdToRemove);
 }
