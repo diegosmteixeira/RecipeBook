@@ -1,12 +1,21 @@
 ﻿using FluentAssertions;
+<<<<<<< HEAD
 using RecipeBook.Exception.ExceptionsBase;
 using RecipeBook.Exception;
+=======
+using RecipeBook.Application.UseCases.Recipe.Recover;
+using RecipeBook.Exception;
+using RecipeBook.Exception.ExceptionsBase;
+>>>>>>> feature/recipe-recovery-by-id
 using TestsUtilities.Entities;
 using TestsUtilities.Mapper;
 using TestsUtilities.Repositories;
 using TestsUtilities.UserLogged;
 using Xunit;
+<<<<<<< HEAD
 using RecipeBook.Application.UseCases.Recipe.Recover;
+=======
+>>>>>>> feature/recipe-recovery-by-id
 
 namespace UseCases.Test.Recipe.RecoverById;
 public class RecipeRecoverByIdUseCaseTest
@@ -19,7 +28,13 @@ public class RecipeRecoverByIdUseCaseTest
 
         var recipe = RecipeBuilder.Build(user);
 
+<<<<<<< HEAD
         var useCase = CreateUseCaseDependencyInjection(user, recipe);
+=======
+        var connections = ConnectionBuilder.Build();
+
+        var useCase = CreateUseCaseDependencyInjection(connections, user, recipe);
+>>>>>>> feature/recipe-recovery-by-id
 
         // act
         var response = await useCase.Execute(recipe.Id);
@@ -38,7 +53,13 @@ public class RecipeRecoverByIdUseCaseTest
 
         var recipe = RecipeBuilder.Build(user);
 
+<<<<<<< HEAD
         var useCase = CreateUseCaseDependencyInjection(user, recipe);
+=======
+        var connections = ConnectionBuilder.Build();
+
+        var useCase = CreateUseCaseDependencyInjection(connections, user, recipe);
+>>>>>>> feature/recipe-recovery-by-id
 
         // act
         Func<Task> action = async () => { await useCase.Execute(0); };
@@ -54,11 +75,21 @@ public class RecipeRecoverByIdUseCaseTest
     {
         // arrange
         (var user, var password) = UserBuilder.Build();
+<<<<<<< HEAD
         (var user77, _) = UserBuilder.BuildUser2();
 
         var recipe = RecipeBuilder.Build(user77);
 
         var useCase = CreateUseCaseDependencyInjection(user, recipe);
+=======
+        (var user77, _) = UserBuilder.BuildUserWithConnection();
+
+        var recipe = RecipeBuilder.Build(user77);
+
+        var connections = ConnectionBuilder.Build();
+
+        var useCase = CreateUseCaseDependencyInjection(connections, user, recipe);
+>>>>>>> feature/recipe-recovery-by-id
 
         // act
 
@@ -70,13 +101,25 @@ public class RecipeRecoverByIdUseCaseTest
             ex.ErrorMessages.Contains(ResourceErrorMessages.RECIPE_NOTFOUND));
     }
 
+<<<<<<< HEAD
     private static RecipeRecoveryByIdUseCase CreateUseCaseDependencyInjection(RecipeBook.Domain.Entities.User user,
+=======
+    private static RecipeRecoveryByIdUseCase CreateUseCaseDependencyInjection(IList<RecipeBook.Domain.Entities.User> connections,
+                                                                              RecipeBook.Domain.Entities.User user,
+>>>>>>> feature/recipe-recovery-by-id
                                                                               RecipeBook.Domain.Entities.Recipe recipe)
     {
         var userLogged = UserLoggedBuilder.Instance().UserRecovery(user).Build();
         var mapper = MapperBuilder.Instance();
+<<<<<<< HEAD
         var repository = RecipeReadOnlyRepositoryBuilder.Instance().RecoverById(recipe).Build();
 
         return new RecipeRecoveryByIdUseCase(repository, userLogged, mapper);
+=======
+        var recipeRepository = RecipeReadOnlyRepositoryBuilder.Instance().RecoverById(recipe).Build();
+        var connRepository = ConnectionReadOnlyRepositoryBuilder.Instance().RecoverConnections(user, connections).Build();
+
+        return new RecipeRecoveryByIdUseCase(connRepository, recipeRepository, userLogged, mapper);
+>>>>>>> feature/recipe-recovery-by-id
     }
 }

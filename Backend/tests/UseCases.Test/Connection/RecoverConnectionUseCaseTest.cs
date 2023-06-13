@@ -18,7 +18,11 @@ public class RecoverConnectionUseCaseTest
     {
         (var user, var _) = UserBuilder.Build();
 
+<<<<<<< HEAD
         var connections = TestsUtilities.Entities.ConnectionBuilder.Build();
+=======
+        var connections = ConnectionBuilder.Build();
+>>>>>>> feature/recipe-recovery-by-id
 
         var useCase = CreateUseCase(connections, user, recipeQuantity);
 

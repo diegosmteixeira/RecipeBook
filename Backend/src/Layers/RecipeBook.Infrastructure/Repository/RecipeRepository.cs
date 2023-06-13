@@ -23,6 +23,13 @@ public class RecipeRepository : IRecipeWriteOnlyRepository, IRecipeReadOnlyRepos
             .Where(r => r.UserId == userId).ToListAsync();
     }
 
+    public async Task<IList<Recipe>> RecipeRecoveryUsersConnectedWith(List<long> userIds)
+    {
+        return await _context.Recipes.AsNoTracking()
+            .Include(r => r.Ingredients)
+            .Where(r => userIds.Contains(r.UserId)).ToListAsync();
+    }
+
     async Task<Recipe> IRecipeReadOnlyRepository.RecipeRecoveryById(long recipeId)
     {
         return await _context.Recipes.AsNoTracking()
