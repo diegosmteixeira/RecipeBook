@@ -1,7 +1,5 @@
 ﻿using Moq;
 using RecipeBook.Application.Services.LoggedUser;
-using RecipeBook.Domain.Repositories.User;
-using TestsUtilities.Repositories;
 
 namespace TestsUtilities.UserLogged;
 

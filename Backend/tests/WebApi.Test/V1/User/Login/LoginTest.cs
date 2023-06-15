@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using RecipeBook.Exception.ExceptionsBase;
 using RecipeBook.Exception;
 using System.Net;
 using System.Text.Json;

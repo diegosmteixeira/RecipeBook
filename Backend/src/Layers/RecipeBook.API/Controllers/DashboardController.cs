@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RecipeBook.API.Filters;
+using RecipeBook.API.Filters.CustomAuthorize;
 using RecipeBook.Application.UseCases.Dashboard;
 using RecipeBook.Communication.Request;
 using RecipeBook.Communication.Response;
@@ -17,7 +17,7 @@ public class DashboardController : RecipeBookController
                                                        [FromBody] RequestDashboardJson request)
     {
         var response = await useCase.Execute(request);
-
+        
         if (response.Recipes.Any())
             return Ok(response);
 

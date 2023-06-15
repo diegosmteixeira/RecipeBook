@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CODE_NOT_FOUND" xml:space="preserve">
+    <value>Code was not found.</value>
+  </data>
+  <data name="CONN_EXISTS" xml:space="preserve">
+    <value>The connection already exists.</value>
+  </data>
   <data name="EMAIL_EXISTS" xml:space="preserve">
     <value>The user's email has already been taken.</value>
   </data>
@@ -162,6 +168,9 @@
   <data name="INVALID_PHONE" xml:space="preserve">
     <value>The user's phone number must be valid (XX) X XXXX-XXXX.</value>
   </data>
+  <data name="OPT_DENIED" xml:space="preserve">
+    <value>You can not execute this operation. Check if the code is valid.</value>
+  </data>
   <data name="PASSWORD_LENGTH" xml:space="preserve">
     <value>The user's password must be 6 characters.</value>
   </data>
@@ -176,6 +185,9 @@
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Unknown Error.</value>
+  </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>User not found.</value>
   </data>
   <data name="WITHOUT_PERMISSION" xml:space="preserve">
     <value>User without permission to access this resource.</value>

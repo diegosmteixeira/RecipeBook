@@ -1,5 +1,4 @@
-﻿using RecipeBook.Exception;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace RecipeBook.API.Middleware;
 
