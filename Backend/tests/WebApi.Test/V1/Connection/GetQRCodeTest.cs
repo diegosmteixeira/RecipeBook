@@ -3,6 +3,7 @@ using RecipeBook.API.WebSockets;
 using RecipeBook.Application.UseCases.Connection.GenerateQRCode;
 using RecipeBook.Exception;
 using RecipeBook.Exception.ExceptionsBase;
+using TestsUtilities.Image;
 using WebApi.Test.V1.Connection.Builder;
 using Xunit;
 
@@ -17,9 +18,7 @@ public class GetQRCodeTest
          var mockClients, 
          var mockHubCallerContext) = MockWebSocketConnectionsBuilder.Build();
 
-        var qrCode = Guid.NewGuid().ToString();
-
-        var useCaseGenerateQRCodeBuilder = GenerateQRCodeBuilder(qrCode);
+        var useCaseGenerateQRCodeBuilder = GenerateQRCodeBuilder();
 
         var hub = new Socket(null, null, useCaseGenerateQRCodeBuilder, mockHubContext.Object, null)
         {
@@ -34,7 +33,7 @@ public class GetQRCodeTest
 
         mockClientProxy.Verify(
             c => c.SendCoreAsync("QR Code",
-            It.Is<object[]>(response => response != null && response.Length == 1 && response.First().Equals(qrCode)), 
+            It.Is<object[]>(response => response != null && response.Length == 1 && response.First() is byte[]),
             default), Times.Once);
     }
 
@@ -90,11 +89,11 @@ public class GetQRCodeTest
                 .Equals(ResourceErrorMessages.WITHOUT_PERMISSION)), default), Times.Once);
     }
 
-    private static IGenerateQRCodeUseCase GenerateQRCodeBuilder(string qrCode)
+    private static IGenerateQRCodeUseCase GenerateQRCodeBuilder()
     {
         var useCaseMock = new Mock<IGenerateQRCodeUseCase>();
 
-        useCaseMock.Setup(u => u.Execute()).ReturnsAsync((qrCode ,"userId"));
+        useCaseMock.Setup(u => u.Execute()).ReturnsAsync((ImageBase64Builder.Build() ,"userId"));
 
         return useCaseMock.Object;
     }

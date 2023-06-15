@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace RecipeBook.Application.UseCases.Connection.GenerateQRCode;
+﻿namespace RecipeBook.Application.UseCases.Connection.GenerateQRCode;
 public interface IGenerateQRCodeUseCase
 {
     Task<(byte[] qrCode, string idUser)> Execute();

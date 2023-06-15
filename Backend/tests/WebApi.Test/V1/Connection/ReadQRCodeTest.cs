@@ -4,6 +4,7 @@ using RecipeBook.Application.UseCases.Connection.GenerateQRCode;
 using RecipeBook.Application.UseCases.Connection.ReadQRCode;
 using RecipeBook.Communication.Response;
 using RecipeBook.Exception;
+using TestsUtilities.Image;
 using TestsUtilities.Responses;
 using WebApi.Test.V1.Connection.Builder;
 using Xunit;
@@ -23,7 +24,7 @@ public class ReadQRCodeTest
         var userToConnect = ResponseUserConnectionJsonBuilder.Build(); 
 
         var useCaseReadQRCode = ReadQRCodeBuilder(userToConnect, connectionCode);
-        var useCaseGenerateQRCoder = GenerateQRCodeBuilder(connectionCode);
+        var useCaseGenerateQRCoder = GenerateQRCodeBuilder();
 
         var hub = new Socket(null, null, useCaseGenerateQRCoder, mockHubContext.Object, useCaseReadQRCode)
         {
@@ -55,7 +56,7 @@ public class ReadQRCodeTest
         var userToConnect = ResponseUserConnectionJsonBuilder.Build();
 
         var useCaseReadQRCode = ReadQRCodeBuilder_UnkownError(userToConnect, connectionCode);
-        var useCaseGenerateQRCoder = GenerateQRCodeBuilder(connectionCode);
+        var useCaseGenerateQRCoder = GenerateQRCodeBuilder();
 
         var hub = new Socket(null, null, useCaseGenerateQRCoder, mockHubContext.Object, useCaseReadQRCode)
         {
@@ -83,10 +84,9 @@ public class ReadQRCodeTest
         var connectionCode = Guid.NewGuid().ToString();
         var userToConnect = ResponseUserConnectionJsonBuilder.Build();
 
-        var useCaseReadQRCode = ReadQRCodeBuilder(userToConnect, connectionCode);
-        var useCaseGenerateQRCoder = GenerateQRCodeBuilder(connectionCode);
+        var useCaseReadQRCode = ReadQRCodeBuilder_UserNotFoundBuilder(userToConnect, connectionCode);
 
-        var hub = new Socket(null, null, useCaseGenerateQRCoder, mockHubContext.Object, useCaseReadQRCode)
+        var hub = new Socket(null, null, null, mockHubContext.Object, useCaseReadQRCode)
         {
             Context = mockHubCallerContext.Object,
             Clients = mockClients.Object
@@ -99,11 +99,11 @@ public class ReadQRCodeTest
                     && response.First().Equals(ResourceErrorMessages.USER_NOT_FOUND)), default), Times.Once);
     }
 
-    private static IGenerateQRCodeUseCase GenerateQRCodeBuilder(string qrCode)
+    private static IGenerateQRCodeUseCase GenerateQRCodeBuilder()
     {
         var useCaseMock = new Mock<IGenerateQRCodeUseCase>();
 
-        useCaseMock.Setup(u => u.Execute()).ReturnsAsync((qrCode, "userId"));
+        useCaseMock.Setup(u => u.Execute()).ReturnsAsync((ImageBase64Builder.Build(), "userId"));
 
         return useCaseMock.Object;
     }
@@ -121,7 +121,16 @@ public class ReadQRCodeTest
     {
         var useCaseMock = new Mock<IReadQRCodeUseCase>();
 
-        useCaseMock.Setup(u => u.Execute(connectionCode)).ThrowsAsync(new ArgumentNullException());
+        useCaseMock.Setup(u => u.Execute(connectionCode)).ThrowsAsync(new ArgumentNullException(string.Empty));
+
+        return useCaseMock.Object;
+    }
+
+    private static IReadQRCodeUseCase ReadQRCodeBuilder_UserNotFoundBuilder(ResponseUserConnectionJson response, string connectionCode)
+    {
+        var useCaseMock = new Mock<IReadQRCodeUseCase>();
+
+        useCaseMock.Setup(u => u.Execute(connectionCode)).ReturnsAsync((response, "idInvalid"));
 
         return useCaseMock.Object;
     }

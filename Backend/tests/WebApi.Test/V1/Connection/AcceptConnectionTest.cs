@@ -2,8 +2,8 @@
 using RecipeBook.API.WebSockets;
 using RecipeBook.Application.UseCases.Connection.AcceptConection;
 using RecipeBook.Application.UseCases.Connection.GenerateQRCode;
-using RecipeBook.Application.UseCases.Connection.RefuseConnection;
 using RecipeBook.Exception;
+using TestsUtilities.Image;
 using TestsUtilities.Responses;
 using WebApi.Test.V1.Connection.Builder;
 using Xunit;
@@ -97,7 +97,7 @@ public class AcceptConnectionTest
     {
         var useCaseMock = new Mock<IGenerateQRCodeUseCase>();
 
-        useCaseMock.Setup(u => u.Execute()).ReturnsAsync((qrCode, "userId"));
+        useCaseMock.Setup(u => u.Execute()).ReturnsAsync((ImageBase64Builder.Build(), "userId"));
 
         return useCaseMock.Object;
     }
@@ -115,7 +115,7 @@ public class AcceptConnectionTest
     {
         var useCaseMock = new Mock<IAcceptConnectionUseCase>();
 
-        useCaseMock.Setup(u => u.Execute(connectedWithUserId)).ThrowsAsync(new ArgumentNullException());
+        useCaseMock.Setup(u => u.Execute(connectedWithUserId)).ThrowsAsync(new ArgumentNullException(string.Empty));
 
         return useCaseMock.Object;
     }

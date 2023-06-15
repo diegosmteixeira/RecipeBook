@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using RecipeBook.API.Filters;
+using RecipeBook.API.Filters.Converter;
 using RecipeBook.API.Filters.CustomAuthorize;
 using RecipeBook.API.Filters.Swagger;
 using RecipeBook.API.Middleware;
@@ -22,7 +23,11 @@ builder.Services.AddRouting(option => option.LowercaseUrls = true);
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new TrimStringConverter());
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
 {
@@ -47,7 +52,7 @@ builder.Services.AddSwaggerGen(option =>
                     Id = "Bearer"
                 }
             },
-            new string[] {}
+            Array.Empty<string>()
         }
     });
 });
