@@ -1,20 +1,37 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# RecipeBookApp - Udemy Course
+This project is my version of **Prof. Welisson Arley's Course on Udemy**
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+[.NET Core: um curso orientado para o mercado de trabalho](https://www.udemy.com/course/net-core-curso-orientado-para-mercado-de-trabalho/)
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+</br>
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+It's about a Recipe Book back-end API developed in .NET Core.
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+Use **.NET Core 6.0** to build this project
+
+---
+
+### Languague and Tools      
+
+<img align="left" alt="dotnet" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" />       
+<img align="left" alt="postman" width="30px" style="padding-right:10px;" src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" />
+<img align="left" alt="azure" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" />
+<img align="left" alt="mysql" width="30px" style="padding-right:10px;" src="https://www.vectorlogo.zone/logos/mysql/mysql-official.svg" />
+
+</br>
+</br>
+
+### Project Topics
+<ul>
+  <li>Scrum workflow using Azure devops</li>
+  <li>Clean Architecture approach</li>
+  <li>Postman Collections with tests</li>
+  <li>Unit tests</li>
+  <li>Integration tests</li>
+  <li>Websockets to users share data</li>
+</ul>
+
+### Project Images
+
+<img style="padding-top:10px;" src="https://raw.githubusercontent.com/dimaggessi/RecipeBook/develop/recipebook_01.jpg"/>
+<img style="padding-top:10px;" src="https://raw.githubusercontent.com/dimaggessi/RecipeBook/develop/recipebook_02.jpg"/>
